@@ -4,7 +4,20 @@
 
 export const environment = {
   production: false,
-  API_ENDPOINT: '/catalogue'
+  beta: false,
+  MATOMO_URL: 'https://analytics.openaire.eu/',
+  MATOMO_SITE: -1,
+  FAQ_ENDPOINT: 'https://dl105.madgik.di.uoa.gr/faq/api',
+  API_ENDPOINT: '/catalogue',
+  STATS_ENDPOINT: 'https://providers.eosc-portal.eu/stats-api/',
+  API_TOKEN_ENDPOINT: '',
+  projectName: 'OpenAIRE Catalogue',
+  projectMail: 'example@oac.eu',
+  serviceORresource: 'Resource',
+  hasUserConsent: true,
+  showHelpContent: false,
+  privacyPolicyURL: '',
+  marketplaceBaseURL: ''
 };
 
 /*
