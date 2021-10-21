@@ -6,16 +6,22 @@ import {AppComponent} from './app.component';
 import {HomeComponent} from "./pages/home/home.component";
 import {DynamicFormModule} from "./pages/dynamic-form/dynamic-form.module";
 import {HttpClientModule} from "@angular/common/http";
+import {SearchComponent} from "./pages/search/search.component";
+import {ReactiveFormsModule} from "@angular/forms";
+import {ReusableComponentsModule} from "./shared/reusable-components/reusable-components.module";
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     DynamicFormModule,
+    ReactiveFormsModule,
+    ReusableComponentsModule,
     AppRoutingModule
   ],
   providers: [],

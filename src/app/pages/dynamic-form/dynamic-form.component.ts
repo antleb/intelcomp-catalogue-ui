@@ -115,7 +115,7 @@ export class DynamicFormComponent implements OnInit {
     // tmpForm['service'] = this.formControlService.toFormGroup(this.fields, true);
     // tmpForm['extras'] = this.formControlService.toFormGroup(this.fields, false);
     // this.form = this.fb.group(tmpForm);
-    this.form = this.formControlService.toFormGroup(this.fields, false);
+    this.form = this.formControlService.toFormGroup(this.fields, true);
 
     /** Initialize tab bitsets **/
     let requiredTabs = 0, requiredTotal = 0;
