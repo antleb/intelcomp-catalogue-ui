@@ -35,7 +35,7 @@ export class FormControlService {
       groups.fields.sort((a, b) => a.field.form.order - b.field.form.order)
       groups.fields.forEach(formField => {
         // console.log(formField.field.name);
-        if (formField.field.form.immutable === checkImmutable) {
+        // if (formField.field.form.immutable === checkImmutable) {
           if (formField.field.multiplicity) {
             if (formField.field.type === 'url') {
               group[formField.field.name] = formField.field.form.mandatory ?
@@ -112,7 +112,7 @@ export class FormControlService {
                 : new FormControl('');
             }
           }
-        }
+        // }
       });
     });
     return new FormGroup(group);

@@ -1,7 +1,8 @@
 <div *ngIf="form" [formGroup]="form">
 
-  <div *ngIf="fieldData.field.form.visible">
+  <div *ngIf="fieldData.field.form.visible || 1">
     <div class="uk-margin-large-bottom">
+      {{fieldData.field.name}}
       <label class="uk-form-label uk-text-right"
              [attr.for]="fieldData.field.name">{{fieldData.field.label + (fieldData.field.form.mandatory ? ' (*)' : '')}}</label>
       <div class="uk-form-description uk-margin-top uk-width-9-10">{{fieldData.field.form.description}}</div>
@@ -9,7 +10,7 @@
 
         <div *ngIf="fieldData.field.type === 'string' || fieldData.field.type === 'url' ||
          fieldData.field.type === 'email' || fieldData.field.type === 'phone'">
-
+{{fieldData.field.name}}
           <div *ngIf="fieldData.field.multiplicity; else noMultiplicity" [formArrayName]="fieldData.field.name">
             <div *ngFor="let input of fieldAsFormArray(fieldData.field.name).controls; let i=index" class="uk-margin-bottom">
               <input [id]="fieldData.field.name" [formControlName]="i"

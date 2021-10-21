@@ -26,8 +26,8 @@ export class DynamicFormComponent implements OnInit {
   serviceORresource = environment.serviceORresource;
   projectName = environment.projectName;
 
-  form: FormGroup = this.fb.group({service: this.fb.group({}), extras: this.fb.group({})}, Validators.required);
-  bitset: Tabs = new Tabs();
+  form: FormGroup;
+  bitset: Tabs = new Tabs;
   errorMessage = '';
   successMessage = '';
   ready = false;
@@ -59,7 +59,7 @@ export class DynamicFormComponent implements OnInit {
         this.errorMessage = 'Something went bad while getting the data for page initialization. ' + JSON.stringify(error.error.error);
       },
       () => {
-        // this.initializations();
+        this.initializations();
         this.ready = true;
       });
   }
@@ -112,9 +112,10 @@ export class DynamicFormComponent implements OnInit {
   initializations() {
     /** Create form **/
     let tmpForm: any = {};
-    tmpForm['service'] = this.formControlService.toFormGroup(this.fields, true);
-    tmpForm['extras'] = this.formControlService.toFormGroup(this.fields, false);
-    this.form = this.fb.group(tmpForm);
+    // tmpForm['service'] = this.formControlService.toFormGroup(this.fields, true);
+    // tmpForm['extras'] = this.formControlService.toFormGroup(this.fields, false);
+    // this.form = this.fb.group(tmpForm);
+    this.form = this.formControlService.toFormGroup(this.fields, false);
 
     /** Initialize tab bitsets **/
     let requiredTabs = 0, requiredTotal = 0;
@@ -139,11 +140,11 @@ export class DynamicFormComponent implements OnInit {
     this.bitset.requiredTotal = requiredTotal;
 
     /** Initialize and sort vocabulary arrays **/
-    let voc: UiVocabulary[] = this.vocabularies['Subcategory'].concat(this.vocabularies['Scientific subdomain'].concat(this.vocabularies['Subusers']));
-    this.subVocabularies = this.groupByKey(voc, 'parentId');
-    for (const [key, value] of Object.entries(this.vocabularies)) {
-      this.premiumSort.transform(this.vocabularies[key], ['English', 'Europe', 'Worldwide']);
-    }
+    // let voc: UiVocabulary[] = this.vocabularies['Subcategory'].concat(this.vocabularies['Scientific subdomain'].concat(this.vocabularies['Subusers']));
+    // this.subVocabularies = this.groupByKey(voc, 'parentId');
+    // for (const [key, value] of Object.entries(this.vocabularies)) {
+    //   this.premiumSort.transform(this.vocabularies[key], ['English', 'Europe', 'Worldwide']);
+    // }
   }
 
   /** Bitsets-->**/

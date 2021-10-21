@@ -145,7 +145,7 @@
                             <li *ngFor="let group of fields">
                               <div *ngFor="let fieldsData of group.fields" class="">
                                 <app-field *ngIf="group.group.id !== 'extras'; else elseBlock" [editMode]="editMode"
-                                           [fieldData]="fieldsData" [form]="getAsFormGroup('service')"
+                                           [fieldData]="fieldsData" [form]="form"
                                            [subVocabularies]="subVocabularies" [vocabularies]="vocabularies"
                                            (handleBitSets)="handleBitSet($event)"
                                            (handleBitSetsOfComposite)="handleBitSetOfComposite($event)">
@@ -163,7 +163,7 @@
                         </div>
 
                       </form>
-<!--                      <pre>{{form.getRawValue() | json}}</pre>-->
+                      <pre>{{form.getRawValue() | json}}</pre>
                     </div>
                   </div>
                 </div>
