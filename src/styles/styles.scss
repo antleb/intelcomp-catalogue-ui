@@ -1,7 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 /* Custom SCSS/SASS Files */
-@import 'custom';
+@import '_service-catalogue-theme.css';
 /* UIKit */
 @import "variables-theme.scss";
 @import "mixins-theme.scss";
 @import "uikit-theme.scss";
+
+/* project specific scss */
+@import 'css/theme.css';
+@import 'css/theme.update.css';
+
+@import 'css/openaire-custom.css';
