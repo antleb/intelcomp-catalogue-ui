@@ -29,6 +29,7 @@ export class DynamicFormFieldsComponent implements OnInit {
   constructor(private formControlService: FormControlService) { }
 
   ngOnInit() {
+    // console.log(this.form);
   }
 
   /** Handle Arrays --> **/
@@ -105,6 +106,7 @@ export class DynamicFormFieldsComponent implements OnInit {
   /** check form fields and tabs validity--> **/
 
   checkFormValidity(name: string, edit: boolean): boolean {
+    // console.log(name);
     return (!this.form.get(name).valid && (edit || this.form.get(name).dirty));
   }
 
