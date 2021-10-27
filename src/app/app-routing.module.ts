@@ -3,6 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {HomeComponent} from "./pages/home/home.component";
 import {DynamicFormComponent} from "./pages/dynamic-form/dynamic-form.component";
 import {SearchComponent} from "./pages/search/search.component";
+import {DatasetLandingPageComponent} from "./pages/landingpages/dataset/dataset-landing-page.component";
 
 const routes: Routes = [
   {
@@ -17,6 +18,10 @@ const routes: Routes = [
   {
     path: 'search',
     component: SearchComponent
+  },
+  {
+    path: 'dataset/:id',
+    component: DatasetLandingPageComponent
   },
   {
     path: 'form',

@@ -9,12 +9,14 @@ import {HttpClientModule} from "@angular/common/http";
 import {SearchComponent} from "./pages/search/search.component";
 import {ReactiveFormsModule} from "@angular/forms";
 import {ReusableComponentsModule} from "./shared/reusable-components/reusable-components.module";
+import {DatasetLandingPageComponent} from "./pages/landingpages/dataset/dataset-landing-page.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    SearchComponent
+    SearchComponent,
+    DatasetLandingPageComponent
   ],
   imports: [
     BrowserModule,

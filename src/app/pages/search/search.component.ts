@@ -42,7 +42,7 @@ export class SearchComponent implements OnInit {
   loading = false;
 
   showSearchFieldDropDown = true;
-  searchFields: string[] = ['name', 'description', 'tagline', 'user value', 'user base', 'use cases'];
+  searchFields: string[] = ['name', 'publisher', 'source'];
   filtersMobileShown = false;
 
   constructor(public fb: FormBuilder, public route: ActivatedRoute, public searchService: SearchService,
