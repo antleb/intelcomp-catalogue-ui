@@ -28,7 +28,7 @@ export class SearchComponent implements OnInit {
   searchForm: FormGroup;
   listViewActive = true;
 
-  searchResultsSnippets: Paging<Snippet>;
+  searchResults: Paging<Object>;
   facetOrder = ['category', 'trl', 'lifeCycleStatus', 'provider'];
 
   //Paging
@@ -69,6 +69,7 @@ export class SearchComponent implements OnInit {
       // this.loading = true; // Uncomment for spinner
       return this.searchService.searchSnippets(this.urlParameters).subscribe(
         searchResults => {
+          console.log(searchResults);
           this.updateSearchResultsSnippets(searchResults);
         },
         error => {},
@@ -110,17 +111,17 @@ export class SearchComponent implements OnInit {
     }
   }
 
-  updateSearchResultsSnippets(searchResults: Paging<Snippet>) {
+  updateSearchResultsSnippets(searchResults: Paging<Object>) {
 
     // INITIALISATIONS
 
     this.errorMessage = null;
-    this.searchResultsSnippets = searchResults;
-    this.searchResultsSnippets.facets.sort();
-    if (this.searchResultsSnippets.results.length === 0) {
+    this.searchResults = searchResults;
+    this.searchResults.facets.sort();
+    if (this.searchResults.results.length === 0) {
       this.foundResults = false;
     } else {
-      this.sortFacets.transform(this.searchResultsSnippets.facets,['Portfolios', 'Users', 'TRL', 'Life Cycle Status'])
+      this.sortFacets.transform(this.searchResults.facets,['Portfolios', 'Users', 'TRL', 'Life Cycle Status'])
     }
     // update form values using URLParameters
     for (const urlParameter of this.urlParameters) {
@@ -132,7 +133,7 @@ export class SearchComponent implements OnInit {
       } else if (urlParameter.key === 'advanced') {
         this.advanced = urlParameter.values[0] === 'true';
       } else {
-        for (const facet of this.searchResultsSnippets.facets) {
+        for (const facet of this.searchResults.facets) {
           if (facet.field === urlParameter.key) {
             //
             for (const parameterValue of urlParameter.values) {
@@ -293,8 +294,8 @@ export class SearchComponent implements OnInit {
     let addToEndCounter = 0;
     let addToStartCounter = 0;
     this.pages = [];
-    this.currentPage = (this.searchResultsSnippets.from / this.pageSize) + 1;
-    this.pageTotal = Math.ceil(this.searchResultsSnippets.total / this.pageSize);
+    this.currentPage = (this.searchResults.from / this.pageSize) + 1;
+    this.pageTotal = Math.ceil(this.searchResults.total / this.pageSize);
     for ( let i = (+this.currentPage - this.offset); i < (+this.currentPage + 1 + this.offset); ++i ) {
       if ( i < 1 ) { addToEndCounter++; }
       if ( i > this.pageTotal ) { addToStartCounter++; }
@@ -324,7 +325,7 @@ export class SearchComponent implements OnInit {
   previousPage() {
     if (this.currentPage > 1) {
       this.currentPage--;
-      let from: number = this.searchResultsSnippets.from;
+      let from: number = this.searchResults.from;
       from -= this.pageSize;
       this.updatePagingURLParameters(from);
       this.navigateUsingParameters();
@@ -334,7 +335,7 @@ export class SearchComponent implements OnInit {
   nextPage() {
     if (this.currentPage < this.pageTotal) {
       this.currentPage++;
-      let from: number = this.searchResultsSnippets.from;
+      let from: number = this.searchResults.from;
       from += this.pageSize;
       this.updatePagingURLParameters(from);
       this.navigateUsingParameters();

@@ -25,7 +25,8 @@ export class SearchService {
       }
     }
     searchQuery.delete('to');
-    return this.http.get<Paging<Snippet>>(this.base + `/ui/services/snippets?order=asc&orderField=name${'&' + searchQuery.toString()}`, this.options);
+    return this.http.get<Paging<Object>>(this.base + `/items?resourceType=dataset_type${'&' + searchQuery.toString()}`, this.options);
+    // return this.http.get<Paging<Object>>(this.base + `/items?resourceType=dataset_type`, this.options);
   }
 
   search(any: any) {
