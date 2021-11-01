@@ -7,8 +7,6 @@ import {HttpClientJsonpModule, HttpClientModule} from "@angular/common/http";
 @NgModule({
     imports: [
         CommonModule,
-        FormsModule,
-        ReactiveFormsModule,
         HttpClientModule,
         HttpClientJsonpModule
     ],

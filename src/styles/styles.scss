@@ -1,13 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
-/* Custom SCSS/SASS Files */
-@import '_service-catalogue-theme.css';
 /* UIKit */
 @import "variables-theme.scss";
 @import "mixins-theme.scss";
 @import "uikit-theme.scss";
 
-/* project specific scss */
-@import 'css/theme.css';
-@import 'css/theme.update.css';
+/* Custom SCSS/SASS Files */
+@import '../catalogue-ui/assets/css/service-catalogue-theme.css';
 
-@import 'css/openaire-custom.css';
+/* project specific scss */
+@import '../assets/css/intelcomp-custom.css';

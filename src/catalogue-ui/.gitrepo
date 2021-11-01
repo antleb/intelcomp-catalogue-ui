@@ -4,7 +4,7 @@
 ; git-subrepo command. See https://github.com/git-commands/git-subrepo#readme
 ;
 [subrepo]
-	remote = https://github.com/jBalasis/catalogue.git
+	remote = https://github.com/jBalasis/catalogue-ui.git
 	branch = main
 	commit = 28932ee28e64691c8e63ec9c890431f978ba21f2
 	parent = b6a1606b95f60bd3186f9597827a60d807a5521d

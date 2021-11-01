@@ -1,6 +1,6 @@
 import {NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {DynamicFormComponent} from "./dynamic-form.component";
 import {DynamicFormFieldsComponent} from "./dynamic-form-fields.component";
 import {DynamicFormEditComponent} from "./dynamic-form-edit.component";
@@ -15,6 +15,7 @@ import {NgSelectModule} from "@ng-select/ng-select";
   ],
   imports: [
     CommonModule,
+    FormsModule,
     ReactiveFormsModule,
     LMarkdownEditorModule,
     NgSelectModule,

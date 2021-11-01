@@ -3,7 +3,6 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {Subscription} from "rxjs";
 import {Paging} from '../../domain/paging';
-import {Snippet} from '../../domain/model';
 import {URLParameter} from '../../domain/url-parameter';
 import {PremiumSortFacetsPipe} from '../../shared/pipes/premium-sort.pipe';
 import {SearchService} from "../../services/search.service";
