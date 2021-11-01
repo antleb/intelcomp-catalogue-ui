@@ -6,7 +6,7 @@
 [subrepo]
 	remote = https://github.com/jBalasis/catalogue-ui.git
 	branch = main
-	commit = 28932ee28e64691c8e63ec9c890431f978ba21f2
-	parent = b6a1606b95f60bd3186f9597827a60d807a5521d
+	commit = c20030f1e137a8583150098d3edae98957cfedc6
+	parent = 3893abfb0a6a95b600b720bc9c82568ab9191fd4
 	method = merge
 	cmdver = 0.4.3
