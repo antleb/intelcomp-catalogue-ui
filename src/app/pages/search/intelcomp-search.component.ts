@@ -4,10 +4,10 @@ import {SearchService} from "../../../catalogue-ui/services/search.service";
 
 @Component({
   selector: 'app-intelcomp-search',
-  templateUrl: './intelcomp-search.component.html',
+  templateUrl: '../../../catalogue-ui/pages/search/search.component.html',
   providers: [SearchService]
 })
 
 export class IntelcompSearchComponent extends SearchComponent{
-
+  itemPath = '/dataset/';
 }
