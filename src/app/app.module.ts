@@ -7,15 +7,16 @@ import {HomeComponent} from "./pages/home/home.component";
 import {HttpClientModule} from "@angular/common/http";
 import {ReusableComponentsModule} from "../catalogue-ui/shared/reusable-components/reusable-components.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {CommonModule} from "@angular/common";
-import {DynamicFormModule} from "../catalogue-ui/pages/dynamic-form/dynamic-form.module";
-import {SearchComponent} from "../catalogue-ui/pages/search/search.component";
 import {CatalogueUiModule} from "../catalogue-ui/catalogue-ui.module";
+import {IntelcompSearchComponent} from "./pages/search/intelcomp-search.component";
+import {DatasetLandingPageComponent} from "./pages/landingpages/datasets/dataset-landing-page.component";
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    IntelcompSearchComponent,
+    DatasetLandingPageComponent
   ],
   imports: [
     AppRoutingModule,
