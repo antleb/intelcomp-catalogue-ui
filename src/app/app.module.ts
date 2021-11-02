@@ -11,12 +11,14 @@ import {CatalogueUiModule} from "../catalogue-ui/catalogue-ui.module";
 import {IntelcompSearchComponent} from "./pages/search/intelcomp-search.component";
 import {DatasetLandingPageComponent} from "./pages/landingpages/datasets/dataset-landing-page.component";
 import {IntelcompTopMenuComponent} from "./shared/topmenu/topmenu.component";
+import {IntelcompFooterComponent} from "./shared/footer/footer.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     IntelcompTopMenuComponent,
+    IntelcompFooterComponent,
     IntelcompSearchComponent,
     DatasetLandingPageComponent
   ],

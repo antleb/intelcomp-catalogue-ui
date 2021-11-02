@@ -14,6 +14,10 @@
 /*}*/
 
 :root {
+  --intelcomp-light-color: #ff006e;
+  --intelcomp-dark-color: #151F2E;
+
+
   --main-font-family: 'Aileron';
   --secondary-font-family: 'Bitter';
   --black: #1A1A1A;
@@ -59,7 +63,7 @@ body {
 }
 
 .uk-section-secondary {
-  background-color: var(--catalogue-dark-purple);
+  background-color: var(--intelcomp-dark-color);
   color: var(--light-grey);
   /*background-color: #fafafa;*/
   /*color: #424242 !important;*/
@@ -263,15 +267,19 @@ hr {
   color: var(--eosc-blue);
 }
 
-/*a {*/
-  /*color: var(--catalogue-ui-light-purple) !important;*/
-  /*text-decoration: none !important;*/
-/*}*/
+a {
+  color: var(--intelcomp-light-color);
+  text-decoration: none;
+}
 
-/*a:hover {*/
-  /*color: var(--openaire-light-blue) !important;*/
-  /*text-decoration: none !important;*/
-/*}*/
+a:hover {
+  color: var(--black);
+  text-decoration: none;
+}
+
+a.footerLink:hover {
+  color: #fff;
+}
 
 /* ========================================================================
    Buttons

@@ -4,7 +4,7 @@ import {LandingPageComponent} from "../../../../catalogue-ui/pages/landingpages/
 
 @Component({
   selector: 'app-dataset',
-  templateUrl: 'dataset-landing-page.component.ts.html',
+  templateUrl: 'dataset-landing-page.component.html',
   providers: [LandingPageService]
 })
 
