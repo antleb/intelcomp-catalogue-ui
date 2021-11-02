@@ -132,10 +132,15 @@
         <tbody>
         <tr *ngFor="let instance of instances">
           <td>{{instance['metadata']['version']}}</td>
-          <td>Table Data</td>
-          <td>Table Data</td>
+          <td>{{instance['metadata']['identifier']['value']}}</td>
+          <td><span *ngFor="let creator of instance['metadata']['creators']['creators']">
+            {{creator['creatorName']}}<br>
+            {{creator['nameIdentifier']['value']}}<br>
+          </span></td>
           <td>{{instance['metadata']['dates']['dates'][0]['value']}}</td>
-          <td>Table Data</td>
+          <td><span *ngFor="let size of instance['metadata']['sizes']['sizes']; let i=index">
+            <span *ngIf="i !== 0">,<br></span>{{size}}
+          </span></td>
           <td><button class="uk-button uk-button-default">Select</button></td>
         </tr>
         </tbody>
