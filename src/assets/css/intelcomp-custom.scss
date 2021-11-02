@@ -31,7 +31,7 @@
   --grey-700: #6E6E6E;
 
 
-  --primary-color: #1D193C;
+  --primary-color: #ff006e;
   /*--primary-color: #AD20E7;*/
   --link-color: #2D72D6;
   --link-hover-color: #3665ab;
@@ -371,6 +371,17 @@ a.uk-icon-button {
 /* ========================================================================
    Menus
  ========================================================================== */
+
+@mixin hook-navbar-misc() {
+
+  // new rule
+  .uk-navbar-nav > li > a {
+    text-transform: none;
+  }
+}
+
+
+
 
 .uk-navbar-dropbar {
   background-color: #fff;

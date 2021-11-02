@@ -10,11 +10,13 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CatalogueUiModule} from "../catalogue-ui/catalogue-ui.module";
 import {IntelcompSearchComponent} from "./pages/search/intelcomp-search.component";
 import {DatasetLandingPageComponent} from "./pages/landingpages/datasets/dataset-landing-page.component";
+import {IntelcompTopMenuComponent} from "./shared/topmenu/topmenu.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
+    IntelcompTopMenuComponent,
     IntelcompSearchComponent,
     DatasetLandingPageComponent
   ],
