@@ -16,9 +16,9 @@
             <span class="field-label">Publisher: {{dataset['metadata']['publisher']}}</span>
           </div>
 
-          <div *ngIf="dataset['metadata']['languages']['languages'][0] !== ''" class="uk-margin-top uk-scrollspy-inview uk-animation-fade uk-label" uk-scrollspy-class="" style="">
+          <div *ngIf="dataset['metadata']['languages'][0] !== ''" class="uk-margin-top uk-scrollspy-inview uk-animation-fade uk-label" uk-scrollspy-class="" style="">
             <!--<span class="field-label">Language: </span>-->
-            <span *ngFor="let language of dataset['metadata']['languages']['languages']" class="field-value">{{language}}</span>
+            <span *ngFor="let language of dataset['metadata']['languages']" class="field-value">{{language}}</span>
           </div>
         </div>
 
@@ -40,22 +40,22 @@
 
         <div class="uk-width-2-3">
           <div class="uk-margin-small-top uk-scrollspy-inview uk-animation-fade serviceDescription line-clamp" uk-scrollspy-class="" style="">
-            {{dataset['metadata']['descriptions']['descriptions'][0]['content'][0]['value']}}
+            {{dataset['metadata']['descriptions'][0]['value']}}
           </div>
 
           <!-- subject -->
-          <div *ngIf="dataset['metadata']['subjects']['subjects'][0] !== ''" class="uk-margin-top uk-scrollspy-inview uk-animation-fade service-users" uk-scrollspy-class="" style="">
+          <div *ngIf="dataset['metadata']['subjects'][0] !== ''" class="uk-margin-top uk-scrollspy-inview uk-animation-fade service-users" uk-scrollspy-class="" style="">
             <span class="field-label">Subjects: </span>
-            <span *ngFor="let item of dataset['metadata']['subjects']['subjects']" class="field-value uk-margin-small-left">{{item}}</span>
+            <span *ngFor="let item of dataset['metadata']['subjects']" class="field-value uk-margin-small-left">{{item}}</span>
           </div>
           <!-- type -->
           <div *ngIf="dataset['metadata']['type']" class="uk-margin-top uk-scrollspy-inview uk-animation-fade service-users" uk-scrollspy-class="" style="">
             <span class="field-label">Type: {{dataset['metadata']['type']['clazz'] + ' ' + dataset['metadata']['type']['value']}}</span>
           </div>
           <!-- format -->
-          <div *ngIf="dataset['metadata']['formats']['formats'][0] !== ''" class="uk-margin-top uk-scrollspy-inview uk-animation-fade service-users" uk-scrollspy-class="" style="">
+          <div *ngIf="dataset['metadata']['formats'][0] !== ''" class="uk-margin-top uk-scrollspy-inview uk-animation-fade service-users" uk-scrollspy-class="" style="">
             <span class="field-label">Formats: </span>
-            <span *ngFor="let item of dataset['metadata']['formats']['formats']" class="field-value uk-margin-small-left">{{item}}</span>
+            <span *ngFor="let item of dataset['metadata']['formats']" class="field-value uk-margin-small-left">{{item}}</span>
           </div>
           <!-- webpage -->
           <div *ngIf="dataset['metadata']['webpage']" class="uk-margin-top uk-scrollspy-inview uk-animation-fade service-users" uk-scrollspy-class="">
@@ -82,7 +82,7 @@
              <ul>
                <li *ngFor="let instance of instances">
                  <span>{{instance['metadata']['version']}}</span><br>
-                 <span>({{instance['metadata']['dates']['dates'][0]['value']}})</span>
+                 <span>({{instance['metadata']['dates'][0]['value']}})</span>
                </li>
              </ul>
             </div>
@@ -133,12 +133,12 @@
         <tr *ngFor="let instance of instances">
           <td>{{instance['metadata']['version']}}</td>
           <td>{{instance['metadata']['identifier']['value']}}</td>
-          <td><span *ngFor="let creator of instance['metadata']['creators']['creators']">
+          <td><span *ngFor="let creator of instance['metadata']['creators']">
             {{creator['creatorName']}}<br>
             {{creator['nameIdentifier']['value']}}<br>
           </span></td>
-          <td>{{instance['metadata']['dates']['dates'][0]['value']}}</td>
-          <td><span *ngFor="let size of instance['metadata']['sizes']['sizes']; let i=index">
+          <td>{{instance['metadata']['dates'][0]['value']}}</td>
+          <td><span *ngFor="let size of instance['metadata']['sizes']; let i=index">
             <span *ngIf="i !== 0">,<br></span>{{size}}
           </span></td>
           <td><button class="uk-button uk-button-default">Select</button></td>
