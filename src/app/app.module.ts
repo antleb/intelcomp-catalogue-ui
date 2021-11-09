@@ -12,6 +12,7 @@ import {IntelcompSearchComponent} from "./pages/search/intelcomp-search.componen
 import {DatasetLandingPageComponent} from "./pages/landingpages/datasets/dataset-landing-page.component";
 import {IntelcompTopMenuComponent} from "./shared/topmenu/topmenu.component";
 import {IntelcompFooterComponent} from "./shared/footer/footer.component";
+import {FormBuilderModule} from "../catalogue-ui/pages/form-builder/form-builder.module";
 
 @NgModule({
   declarations: [
@@ -29,7 +30,7 @@ import {IntelcompFooterComponent} from "./shared/footer/footer.component";
     FormsModule,
     ReactiveFormsModule,
     ReusableComponentsModule,
-    CatalogueUiModule
+    CatalogueUiModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
