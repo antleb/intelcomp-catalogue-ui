@@ -6,8 +6,6 @@ import {ReusableComponentsModule} from "./shared/reusable-components/reusable-co
 import {CommonModule} from "@angular/common";
 import {SearchComponent} from "./pages/search/search.component";
 import {RouterModule} from "@angular/router";
-import {FormBuilderComponent} from "./pages/form-builder/form-builder.component";
-import {FormBuilderModule} from "./pages/form-builder/form-builder.module";
 
 @NgModule({
   declarations: [
@@ -21,7 +19,6 @@ import {FormBuilderModule} from "./pages/form-builder/form-builder.module";
     ReactiveFormsModule,
     ReusableComponentsModule,
     DynamicFormModule,
-    FormBuilderModule
   ],
   providers: [],
 })
