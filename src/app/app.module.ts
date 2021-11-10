@@ -29,7 +29,7 @@ import {IntelcompFooterComponent} from "./shared/footer/footer.component";
     FormsModule,
     ReactiveFormsModule,
     ReusableComponentsModule,
-    CatalogueUiModule
+    CatalogueUiModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

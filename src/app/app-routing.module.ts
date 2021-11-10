@@ -34,7 +34,7 @@ const routes: Routes = [
   {
     path: 'formBuilder',
     component: FormBuilderComponent
-  },
+  }
 ];
 
 @NgModule({
