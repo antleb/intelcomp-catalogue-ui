@@ -18,6 +18,21 @@
 
         <h5>Filter By</h5>
 
+        <div class="uk-margin-medium-bottom">
+          <div class="uk-inline uk-margin-right">
+            <label class="" for="entity">Entity </label>
+            <div class="uk-inline">
+              <select class="uk-input uk-select" id="entity" formControlName="entity">
+                <option value="publication" selected>Publication</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="uk-inline">
+            <button style="background:none; border:none;" (click)="sampleModal()">View Sample</button>
+          </div>
+        </div>
+
         <div class="uk-margin-large-bottom">
           <label class="uk-form-label uk-text-right" for="dateFrom">
             Date From:
@@ -111,10 +126,21 @@
         </div>
 
 <!--        TODO: disable if no filter is filled -->
-        <button type="submit" class="uk-button uk-button-primary uk-margin-left" [ngClass]="!dataForm?'disabled':''">Get my data</button>
+        <button type="submit" class="uk-button uk-button-primary uk-margin-left"
+                [ngClass]="!dataForm?'disabled':''"
+                (click)="printMyData()">Get my data
+        </button>
       </div>
 
     </form>
 
+  </div>
+</div>
+
+<div id="sampleModal" class="uk-flex-top uk-modal-container" uk-modal="bg-close: true; esc-close: true;">
+  <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+    <ng-container *ngIf="'sample'=='sample'">
+      <code><pre>sample</pre></code>
+    </ng-container>
   </div>
 </div>

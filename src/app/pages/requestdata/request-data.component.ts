@@ -6,6 +6,8 @@ import {NavigationService} from "../../services/navigation.service";
 import {CatalogueService} from "../../services/catalogue.service";
 import {ActivatedRoute} from '@angular/router';
 
+declare var UIkit: any;
+
 @Component({
   selector: 'app-request-data',
   templateUrl: 'request-data.component.html'
@@ -15,6 +17,7 @@ import {ActivatedRoute} from '@angular/router';
 export class RequestDataComponent implements OnInit, OnDestroy {
 
   formPrepare = {
+    entity: 'publication',
     dateFrom: '',
     dateTo: '',
     publishers: this.fb.array([this.fb.control('')]),
@@ -75,6 +78,14 @@ export class RequestDataComponent implements OnInit, OnDestroy {
     this.getFieldAsFormArray(field).removeAt(i);
   }
   /** <--manage form arrays **/
+
+  printMyData(){
+    console.log(this.dataForm.value);
+  }
+
+  sampleModal() {
+    UIkit.modal('#sampleModal').show();
+  }
 
 }
 
