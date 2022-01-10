@@ -12,8 +12,8 @@ declare var UIkit: any;
 
 export class DatasetLandingPageComponent extends LandingPageComponent {
 
-  gotoRequestData(instanceId) {
-    this.navigationService.setDataRequestIds(instanceId);
+  gotoRequestData(instanceId, datasetId) {
+    this.navigationService.setDataRequestIds(instanceId, datasetId);
     this.router.navigate([`/request-data`]);
     UIkit.modal('#modal-dataset-instances').hide();
   }

@@ -44,8 +44,8 @@ export class RequestDataComponent implements OnInit, OnDestroy {
     this.navigationService.dataRequestIds$.subscribe(dataRequestIds => {
       console.log('show dataRequestIds:',dataRequestIds);
         if (dataRequestIds) {
-          console.log('before call');
-          this.catalogueService.getInstance(dataRequestIds, 'dataset_instance').subscribe(
+          console.log('before call',dataRequestIds.instanceId, dataRequestIds.datasetId);
+          this.catalogueService.getResourceTypeById(dataRequestIds.instanceId, 'dataset_instance').subscribe(
             res => {
               this.instance = res;
               console.log(this.instance);
@@ -61,7 +61,7 @@ export class RequestDataComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.navigationService.setDataRequestIds(null);
+    this.navigationService.setDataRequestIds(null, null);
     this.instance = null;
   }
 

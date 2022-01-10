@@ -4,7 +4,7 @@ import {BehaviorSubject, Subject} from 'rxjs';
 @Injectable()
 export class NavigationService {
 
-    public dataRequestIds: BehaviorSubject<string> = new BehaviorSubject<string>(null);
+    public dataRequestIds: BehaviorSubject<{instanceId:string, datasetId:string}> = new BehaviorSubject<{instanceId:string, datasetId:string}>(null);
 
     constructor() {
     }
@@ -17,10 +17,11 @@ export class NavigationService {
         window.location.href = url;
     }
 
-    public setDataRequestIds(instanceId: any) {
+    public setDataRequestIds(instanceId: string, datasetId: string) {
       console.log('setting instanceID', instanceId);
+      console.log('setting instanceID', datasetId);
       console.log('set dataRequestIdsObservable', this.dataRequestIds);
-      this.dataRequestIds.next(instanceId);
+      this.dataRequestIds.next({instanceId:instanceId, datasetId:datasetId});
     }
 
     public get dataRequestIds$() {

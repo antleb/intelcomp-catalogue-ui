@@ -11,7 +11,7 @@ export class CatalogueService {
   constructor(public http: HttpClient) {
   }
 
-  getInstance(id: string, resourceType: string) {
+  getResourceTypeById(id: string, resourceType: string) {
     console.log('knocking on:', this.base + `/items/${id}?resourceType=${resourceType}`);
     return this.http.get(this.base + `/items/${id}?resourceType=${resourceType}`);
   }
