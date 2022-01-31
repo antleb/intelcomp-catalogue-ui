@@ -101,33 +101,47 @@
           </div>
         </div>
 
-        <div formArrayName="projects" class="uk-margin-large-bottom">
-          <label class="uk-form-label uk-text-right" for="projects">
-            Project
-          </label>
+        <div class="uk-margin-large-bottom">
+          <label class="uk-form-label uk-text-right">Projects</label>
           <div class="uk-form-controls uk-margin-medium-top">
-            <div *ngFor="let project of getFieldAsFormArray('projects').controls; let i=index"
-                 class="uk-margin-bottom">
-              <input id="projects" class="uk-input uk-width-9-10 uk-animation-slide-top-small"
-                     type="text" [formControlName]="i" placeholder="project name / project acronym">
+            <div formArrayName="projects"
+                 *ngFor="let project of projectArray.controls; let i = index">
+              <div [formGroupName]="i"
+                   class="uk-margin-bottom uk-padding-remove-top formGroupElement uk-width-9-10 uk-display-inline-block">
+                <div class="">
+                  <label class="uk-form-label uk-text-right" for="name">
+                    Project Name
+                  </label>
+                  <div class="uk-form-controls uk-margin-medium-top">
+                    <input id="name" class="uk-input" type="text" formControlName="name">
+                  </div>
+                </div>
+                <div class="">
+                  <label class="uk-form-label uk-text-right" for="acronym">
+                    Project Acronym
+                  </label>
+                  <div class="uk-form-controls uk-margin-medium-top">
+                    <input id="acronym" class="uk-input" type="text" formControlName="acronym">
+                  </div>
+                </div>
+
+              </div>
               <a *ngIf="getFieldAsFormArray('projects').length > 1"
                  class="remove-element uk-padding-small"
-                 (click)="remove('projects', i)">
+                 (click)="removeProject(i)">
                 <i class="" aria-hidden="true">X</i>
               </a>
             </div>
-            <div class="uk-width-9-10 uk-text-center uk-margin-medium-top">
-              <a class="add-new-element"
-                 (click)="push('projects')">
+            <div class="uk-width-9-10 uk-text-center uk-margin-top">
+              <a class="add-new-element" (click)="pushProject()">
                 <i class="" aria-hidden="true"></i>+ Add Project
               </a>
             </div>
           </div>
         </div>
 
-<!--        TODO: disable if no filter is filled -->
-        <button type="submit" class="uk-button uk-button-primary uk-margin-left"
-                [ngClass]="!dataForm?'disabled':''"
+        <button type="submit" class="uk-button uk-button-blue uk-margin-left"
+                [ngClass]="!dataForm.touched?'uk-disabled':''"
                 (click)="printMyData()">Get my data
         </button>
       </div>
@@ -139,8 +153,10 @@
 
 <div id="sampleModal" class="uk-flex-top uk-modal-container" uk-modal="bg-close: true; esc-close: true;">
   <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
-    <ng-container *ngIf="'sample'=='sample'">
-      <code><pre>sample</pre></code>
-    </ng-container>
+    <div *ngIf="dataset">
+      <ng-container *ngIf="dataset['schema']['entities']['sample']">
+        <code><pre>sample</pre></code>
+      </ng-container>
+    </div>
   </div>
 </div>
