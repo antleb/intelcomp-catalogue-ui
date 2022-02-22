@@ -7,7 +7,7 @@ export const environment = {
   beta: false,
   MATOMO_URL: '',
   MATOMO_SITE: -1,
-  API_ENDPOINT: '/catalogue',
+  API_ENDPOINT: '/api',
   API_TOKEN_ENDPOINT: '',
   projectName: 'Intelcomp',
   projectMail: 'example@oac.eu',
