@@ -1,27 +1,28 @@
 import {Component, EventEmitter, Input, OnInit, Output} from "@angular/core";
-import {Fields, HandleBitSet, UiVocabulary} from "../../../../domain/dynamic-form-model";
+import {Field, HandleBitSet, UiVocabulary} from "../../../../domain/dynamic-form-model";
 import {FormArray, FormControl, FormGroup, FormGroupDirective, Validators} from "@angular/forms";
 import {FormControlService} from "../../../../services/form-control.service";
 import {urlAsyncValidator, URLValidator} from "../../../../shared/validators/generic.validator";
 
 @Component({
   selector: 'app-vocabulary-field',
-  templateUrl: './vocabulary-field.component.html'
+  templateUrl: './vocabulary-field.component.html',
+  styleUrls: ['./vocabulary-field.component.scss']
 })
 
 export class VocabularyFieldComponent implements OnInit {
-  @Input() fieldData: Fields;
+  @Input() fieldData: Field;
   @Input() vocabularies: Map<string, string[]>;
   @Input() subVocabularies: UiVocabulary[];
   @Input() editMode: any;
   @Input() position?: number = null;
 
-  @Output() handleBitSets = new EventEmitter<Fields>();
+  @Output() hasChanges = new EventEmitter<boolean>();
+  @Output() handleBitSets = new EventEmitter<Field>();
   @Output() handleBitSetsOfComposite = new EventEmitter<HandleBitSet>();
 
   formControl!: FormControl;
   form!: FormGroup;
-  hasChanges = false;
 
   constructor(private rootFormGroup: FormGroupDirective, private formControlService: FormControlService) {
   }
@@ -32,9 +33,9 @@ export class VocabularyFieldComponent implements OnInit {
     } else {
       this.form = this.rootFormGroup.control;
     }
-    this.formControl = this.form.get(this.fieldData.field.name) as FormControl;
-    // console.log(this.vocabularies[this.fieldData.field.typeInfo.vocabulary]);
-    // console.log(this.fieldData.field.name);
+    this.formControl = this.form.get(this.fieldData.name) as FormControl;
+    // console.log(this.vocabularies[this.fieldData.typeInfo.vocabulary]);
+    // console.log(this.fieldData.name);
     // console.log(this.formControl);
   }
 
@@ -47,8 +48,8 @@ export class VocabularyFieldComponent implements OnInit {
   push(field: string, required: boolean, type: string) {
     switch (type) {
       case 'url':
-        this.fieldAsFormArray().push(required ? new FormControl('', Validators.compose([Validators.required, URLValidator]), urlAsyncValidator(this.formControlService))
-          : new FormControl('', URLValidator, urlAsyncValidator(this.formControlService)));
+        this.fieldAsFormArray().push(required ? new FormControl('', Validators.compose([Validators.required, URLValidator]))
+          : new FormControl('', URLValidator));
         break;
       default:
         this.fieldAsFormArray().push(required ? new FormControl('', Validators.required) : new FormControl(''));
@@ -62,7 +63,7 @@ export class VocabularyFieldComponent implements OnInit {
   /** check fields validity--> **/
 
   checkFormValidity(): boolean {
-    return (!this.formControl.valid && (this.editMode || this.formControl.dirty));
+    return (!this.formControl.valid && (this.formControl.touched || this.formControl.dirty));
   }
 
   checkFormArrayValidity(name: string, position: number, edit: boolean, groupName?: string): boolean {
@@ -76,9 +77,9 @@ export class VocabularyFieldComponent implements OnInit {
   }
   /** Bitsets--> **/
 
-  updateBitSet(fieldData: Fields) {
+  updateBitSet(fieldData: Field) {
     this.timeOut(200).then(() => { // Needed for radio buttons strange behaviour
-      if (fieldData.field.form.mandatory) {
+      if (fieldData.form.mandatory) {
         this.handleBitSets.emit(fieldData);
       }
     });
@@ -86,7 +87,7 @@ export class VocabularyFieldComponent implements OnInit {
 
   /** other stuff--> **/
   unsavedChangesPrompt() {
-    this.hasChanges = true;
+    this.hasChanges.emit(true);
   }
 
   timeOut(ms: number) {
