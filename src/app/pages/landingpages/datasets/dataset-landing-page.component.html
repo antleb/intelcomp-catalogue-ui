@@ -126,7 +126,7 @@
           <th>Creator</th>
           <th>Creation date</th>
           <th>Sizes</th>
-          <th>Actions</th>
+          <th *ngIf="dataset['name']==='OpenAIRE Graph'">Actions</th>
         </tr>
         </thead>
         <tbody>
@@ -141,7 +141,7 @@
           <td><span *ngFor="let size of instance['metadata']['sizes']; let i=index">
             <span *ngIf="i !== 0">,<br></span>{{size}}
           </span></td>
-          <td><button class="uk-button uk-button-default">Select</button></td>
+          <td *ngIf="dataset['name']==='OpenAIRE Graph'"><button class="uk-button uk-button-default" (click)="gotoRequestData(instance['id'], dataset['id'])">Select</button></td>
         </tr>
         </tbody>
       </table>

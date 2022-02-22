@@ -4,6 +4,7 @@ import {HomeComponent} from "./pages/home/home.component";
 import {DynamicFormComponent} from "../catalogue-ui/pages/dynamic-form/dynamic-form.component";
 import {IntelcompSearchComponent} from "./pages/search/intelcomp-search.component";
 import {DatasetLandingPageComponent} from "./pages/landingpages/datasets/dataset-landing-page.component";
+import {RequestDataComponent} from "./pages/requestdata/request-data.component";
 
 const routes: Routes = [
   {
@@ -22,6 +23,10 @@ const routes: Routes = [
   {
     path: 'dataset/:id',
     component: DatasetLandingPageComponent
+  },
+  {
+    path: 'request-data',
+    component: RequestDataComponent
   },
   {
     path: 'form',

@@ -12,6 +12,9 @@ import {IntelcompSearchComponent} from "./pages/search/intelcomp-search.componen
 import {DatasetLandingPageComponent} from "./pages/landingpages/datasets/dataset-landing-page.component";
 import {IntelcompTopMenuComponent} from "./shared/topmenu/topmenu.component";
 import {IntelcompFooterComponent} from "./shared/footer/footer.component";
+import {RequestDataComponent} from "./pages/requestdata/request-data.component";
+import {NavigationService} from "./services/navigation.service";
+import {CatalogueService} from "./services/catalogue.service";
 
 @NgModule({
   declarations: [
@@ -20,7 +23,8 @@ import {IntelcompFooterComponent} from "./shared/footer/footer.component";
     IntelcompTopMenuComponent,
     IntelcompFooterComponent,
     IntelcompSearchComponent,
-    DatasetLandingPageComponent
+    DatasetLandingPageComponent,
+    RequestDataComponent
   ],
   imports: [
     AppRoutingModule,
@@ -31,7 +35,10 @@ import {IntelcompFooterComponent} from "./shared/footer/footer.component";
     ReusableComponentsModule,
     CatalogueUiModule,
   ],
-  providers: [],
+  providers: [
+    CatalogueService,
+    NavigationService
+  ],
   bootstrap: [AppComponent]
 })
 
