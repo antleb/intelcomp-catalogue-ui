@@ -15,6 +15,9 @@ import {IntelcompFooterComponent} from "./shared/footer/footer.component";
 import {RequestDataComponent} from "./pages/requestdata/request-data.component";
 import {NavigationService} from "./services/navigation.service";
 import {CatalogueService} from "./services/catalogue.service";
+import {SurveyService} from "./services/survey.service";
+import {FormComponent} from "./pages/form/form.component";
+import {DynamicFormModule} from "../catalogue-ui/pages/dynamic-form/dynamic-form.module";
 
 @NgModule({
   declarations: [
@@ -24,7 +27,8 @@ import {CatalogueService} from "./services/catalogue.service";
     IntelcompFooterComponent,
     IntelcompSearchComponent,
     DatasetLandingPageComponent,
-    RequestDataComponent
+    RequestDataComponent,
+    FormComponent
   ],
   imports: [
     AppRoutingModule,
@@ -34,10 +38,12 @@ import {CatalogueService} from "./services/catalogue.service";
     ReactiveFormsModule,
     ReusableComponentsModule,
     CatalogueUiModule,
+    DynamicFormModule,
   ],
   providers: [
     CatalogueService,
-    NavigationService
+    NavigationService,
+    SurveyService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,10 +1,11 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {HomeComponent} from "./pages/home/home.component";
-import {DynamicFormComponent} from "../catalogue-ui/pages/dynamic-form/dynamic-form.component";
+
 import {IntelcompSearchComponent} from "./pages/search/intelcomp-search.component";
 import {DatasetLandingPageComponent} from "./pages/landingpages/datasets/dataset-landing-page.component";
 import {RequestDataComponent} from "./pages/requestdata/request-data.component";
+import {FormComponent} from "./pages/form/form.component";
 
 const routes: Routes = [
   {
@@ -29,8 +30,8 @@ const routes: Routes = [
     component: RequestDataComponent
   },
   {
-    path: 'form',
-    component: DynamicFormComponent
+    path: 'form/:datasetTypeId',
+    component: FormComponent
     // loadChildren: () => import('../app/pages/dynamic-form/dynamic-form.module').then(m => m.DynamicFormModule)
   }
 ];
