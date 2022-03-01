@@ -16,7 +16,7 @@ export class Survey {
 
 export class SurveyAnswer {
   id: string;
-  surveyId: string;
+  modelId: string;
   stakeholderId: string;
   chapterAnswers: Map<string, ChapterAnswer>;
   metadata: Metadata;
@@ -28,7 +28,7 @@ export class SurveyAnswer {
   constructor(chapterAnswers: Map<string, ChapterAnswer>, surveyId: string) {
     this.id = null;
     this.chapterAnswers = chapterAnswers;
-    this.surveyId = surveyId;
+    this.modelId = surveyId;
     this.metadata = null;
   }
 }

@@ -11,8 +11,8 @@ import {ChapterAnswer, Survey, SurveyAnswer} from "../../domain/survey";
 
 export class FormComponent implements OnInit {
 
-  answerMap: Map<string, ChapterAnswer> = new Map<string, ChapterAnswer>();
-  chapterAnswer: ChapterAnswer = null;
+  // answerMap: Map<string, ChapterAnswer> = new Map<string, ChapterAnswer>();
+  // chapterAnswer: ChapterAnswer = null;
   tabsHeader: string = null;
   survey: Survey = null;
   surveyAnswers: SurveyAnswer = null
@@ -23,16 +23,15 @@ export class FormComponent implements OnInit {
 
   ngOnInit() {
     this.datasetTypeId = this.activatedRoute.snapshot.params['datasetTypeId'];
-    this.catalogueService.getResourceTypeById(this.datasetTypeId, 'dataset_type').subscribe(
+    this.catalogueService.getDatasetAnswer(this.datasetTypeId).subscribe(
       res => {
-        this.chapterAnswer = new ChapterAnswer('c-tTpgVjMV', res);
+        this.surveyAnswers = res;
+        this.surveyAnswers.modelId = 'm-eNScSZrq';
+        this.surveyAnswers.chapterAnswers[this.datasetTypeId].chapterId = 'c-tTpgVjMV';
+        console.log(this.surveyAnswers);
       },
       error => {
         console.log(error);
-      },
-      () => {
-        this.answerMap['ca-tTpgVjMV'] = this.chapterAnswer;
-        this.surveyAnswers = new SurveyAnswer(this.answerMap, 'm-eNScSZrq');
       }
     );
   }

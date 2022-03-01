@@ -1,6 +1,7 @@
 import {Injectable} from "@angular/core";
 import {environment} from "../../environments/environment";
 import {HttpClient, HttpParams} from "@angular/common/http";
+import {SurveyAnswer} from "../domain/survey";
 
 @Injectable()
 export class CatalogueService {
@@ -14,6 +15,14 @@ export class CatalogueService {
   getResourceTypeById(id: string, resourceType: string) {
     console.log('knocking on:', this.base + `/items/${id}?resourceType=${resourceType}`);
     return this.http.get(this.base + `/items/${id}?resourceType=${resourceType}`);
+  }
+
+  getDatasetAnswer(id: string) {
+    return this.http.get<SurveyAnswer>(this.base + `/datasets/${id}`);
+  }
+
+  getJobs() {
+    return this.http.post(this.base + '/jobs', {})
   }
 
 }

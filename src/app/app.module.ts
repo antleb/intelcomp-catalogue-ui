@@ -18,6 +18,7 @@ import {CatalogueService} from "./services/catalogue.service";
 import {SurveyService} from "./services/survey.service";
 import {FormComponent} from "./pages/form/form.component";
 import {DynamicFormModule} from "../catalogue-ui/pages/dynamic-form/dynamic-form.module";
+import {BrowseJobsComponent} from "./pages/browse-jobs/browse-jobs.component";
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import {DynamicFormModule} from "../catalogue-ui/pages/dynamic-form/dynamic-form
     IntelcompSearchComponent,
     DatasetLandingPageComponent,
     RequestDataComponent,
-    FormComponent
+    FormComponent,
+    BrowseJobsComponent
   ],
   imports: [
     AppRoutingModule,

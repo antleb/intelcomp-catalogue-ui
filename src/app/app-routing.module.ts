@@ -6,6 +6,7 @@ import {IntelcompSearchComponent} from "./pages/search/intelcomp-search.componen
 import {DatasetLandingPageComponent} from "./pages/landingpages/datasets/dataset-landing-page.component";
 import {RequestDataComponent} from "./pages/requestdata/request-data.component";
 import {FormComponent} from "./pages/form/form.component";
+import {BrowseJobsComponent} from "./pages/browse-jobs/browse-jobs.component";
 
 const routes: Routes = [
   {
@@ -28,6 +29,10 @@ const routes: Routes = [
   {
     path: 'request-data',
     component: RequestDataComponent
+  },
+  {
+    path: 'browseJobs',
+    component: BrowseJobsComponent
   },
   {
     path: 'form/:datasetTypeId',
