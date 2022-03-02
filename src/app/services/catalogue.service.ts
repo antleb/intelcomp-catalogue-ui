@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {environment} from "../../environments/environment";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {SurveyAnswer} from "../domain/survey";
+import {Job} from "../domain/job";
 
 @Injectable()
 export class CatalogueService {
@@ -23,6 +24,10 @@ export class CatalogueService {
 
   getJobs() {
     return this.http.post(this.base + '/jobs', {})
+  }
+
+  addJob(job: Job) {
+    return this.http.post(this.base + '/jobs/execute', job) ;
   }
 
 }

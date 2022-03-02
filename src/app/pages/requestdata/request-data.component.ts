@@ -1,10 +1,8 @@
 import {Component, OnDestroy, OnInit} from "@angular/core";
-import {URLParameter} from "../../../catalogue-ui/domain/url-parameter";
-import {DatasetLandingPageComponent} from "../landingpages/datasets/dataset-landing-page.component";
-import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {NavigationService} from "../../services/navigation.service";
 import {CatalogueService} from "../../services/catalogue.service";
-import {ActivatedRoute} from '@angular/router';
+import {Job, JobArguments} from "../../domain/job";
 
 declare var UIkit: any;
 
@@ -16,11 +14,11 @@ declare var UIkit: any;
 export class RequestDataComponent implements OnInit, OnDestroy {
 
   formPrepare = {
-    entity: 'publication',
+    // entity: 'publication',
     dateFrom: '',
     dateTo: '',
-    publishers: this.fb.array([this.fb.control('')]),
-    journals: this.fb.array([this.fb.control('')]),
+    publisher: this.fb.array([this.fb.control('')]),
+    journal: this.fb.array([this.fb.control('')]),
     projects: this.fb.array([
       this.fb.group({
       name: [''],
@@ -35,6 +33,8 @@ export class RequestDataComponent implements OnInit, OnDestroy {
   dataset: Object = null;
 
   instanceId: string;
+
+  job: Job = new Job();
 
   constructor(
     private fb: FormBuilder,
@@ -59,7 +59,7 @@ export class RequestDataComponent implements OnInit, OnDestroy {
           console.log('there is no dataRequestIds');
         }
         },
-        error => {console.log('error');},
+        error => {console.log(error);},
         () => {console.log('subject is', this.navigationService.dataRequestIds$);}
       )
 
@@ -86,6 +86,48 @@ export class RequestDataComponent implements OnInit, OnDestroy {
     this.navigationService.setDataRequestIds(null, null);
     this.instance = null;
     this.dataset = null;
+  }
+
+  submit() {
+    for (const [key, value] of Object.entries(this.dataForm.getRawValue())) {
+
+      if (typeof value === 'object' && !Array.isArray(value) && value !== null) {
+        for (const [subKey, subValue] of Object.entries(this.dataForm.get(key).value)) {
+          console.log(`${subKey}: ${subValue}`);
+        }
+      } else if (typeof value === 'object' && Array.isArray(value) && value !== null) {
+        let tmpArr = this.dataForm.get(key) as FormArray;
+        console.log(tmpArr);
+        for (let i = 0; i < value.length; i++) {
+          if (typeof value[i] === 'object' && !Array.isArray(value[i])) {
+            for (let j = 0; j < tmpArr.length; j++) {
+              console.log(tmpArr[j]);
+            }
+            // for (const [subKey, subValue] of Object.entries(this.dataForm.get(key)[i].value)) {
+            //   console.log(`${subKey}: ${subValue}`);
+              // console.log(this.dataForm.get(key).get(subKey).value);
+            // }
+          } else if (value[i] !== '') {
+            console.log(`${key}: ${value[i]}`);
+            this.job.jobArguments.push(new JobArguments(key, value[i].toString()));
+          }
+        }
+
+      } else if (value !== '') {
+        console.log(`${key}: ${value}`);
+
+        this.job.jobArguments.push(new JobArguments(key, value.toString()));
+      }
+    }
+
+    console.log(this.job);
+    this.job.callerAttributes = JSON.stringify(this.job.jobArguments);
+    this.job.serviceArguments.processId = 'TouJohny2';
+    this.catalogueService.addJob(this.job).subscribe(
+      res => {console.log(res)},
+      error => {console.log(error)}
+    );
+    this.job = new Job();
   }
 
   /** manage form arrays--> **/

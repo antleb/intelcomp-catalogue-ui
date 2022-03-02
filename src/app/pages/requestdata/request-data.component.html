@@ -22,7 +22,8 @@
           <div class="uk-inline uk-margin-right">
             <label class="" for="entity">Entity </label>
             <div class="uk-inline">
-              <select class="uk-input uk-select" id="entity" formControlName="entity">
+              <select class="uk-input uk-select" id="entity">
+<!--              <select class="uk-input uk-select" id="entity" formControlName="entity">-->
                 <option value="publication" selected>Publication</option>
               </select>
             </div>
@@ -53,48 +54,48 @@
           </div>
         </div>
 
-        <div formArrayName="publishers" class="uk-margin-large-bottom">
-          <label class="uk-form-label uk-text-right" for="publishers">
+        <div formArrayName="publisher" class="uk-margin-large-bottom">
+          <label class="uk-form-label uk-text-right" for="publisher">
             Publisher
           </label>
           <div class="uk-form-controls uk-margin-medium-top">
-            <div *ngFor="let publisher of getFieldAsFormArray('publishers').controls; let i=index"
+            <div *ngFor="let publisher of getFieldAsFormArray('publisher').controls; let i=index"
                  class="uk-margin-bottom">
-              <input id="publishers" class="uk-input uk-width-9-10 uk-animation-slide-top-small"
+              <input id="publisher" class="uk-input uk-width-9-10 uk-animation-slide-top-small"
                      type="text" [formControlName]="i">
-              <a *ngIf="getFieldAsFormArray('publishers').length > 1"
+              <a *ngIf="getFieldAsFormArray('publisher').length > 1"
                  class="remove-element uk-padding-small"
-                 (click)="remove('publishers', i)">
+                 (click)="remove('publisher', i)">
                 <i class="" aria-hidden="true">X</i>
               </a>
             </div>
             <div class="uk-width-9-10 uk-text-center uk-margin-medium-top">
               <a class="add-new-element"
-                 (click)="push('publishers')">
+                 (click)="push('publisher')">
                 <i class="" aria-hidden="true"></i>+ Add Publisher
               </a>
             </div>
           </div>
         </div>
 
-        <div formArrayName="journals" class="uk-margin-large-bottom">
-          <label class="uk-form-label uk-text-right" for="journals">
+        <div formArrayName="journal" class="uk-margin-large-bottom">
+          <label class="uk-form-label uk-text-right" for="journal">
             Journal
           </label>
           <div class="uk-form-controls uk-margin-medium-top">
-            <div *ngFor="let journal of getFieldAsFormArray('journals').controls; let i=index"
+            <div *ngFor="let journal of getFieldAsFormArray('journal').controls; let i=index"
                  class="uk-margin-bottom">
-              <input id="journals" class="uk-input uk-width-9-10 uk-animation-slide-top-small"
+              <input id="journal" class="uk-input uk-width-9-10 uk-animation-slide-top-small"
                      type="text" [formControlName]="i">
-              <a *ngIf="getFieldAsFormArray('journals').length > 1"
+              <a *ngIf="getFieldAsFormArray('journal').length > 1"
                  class="remove-element uk-padding-small"
-                 (click)="remove('journals', i)">
+                 (click)="remove('journal', i)">
                 <i class="" aria-hidden="true">X</i>
               </a>
             </div>
             <div class="uk-width-9-10 uk-text-center uk-margin-medium-top">
               <a class="add-new-element"
-                 (click)="push('journals')">
+                 (click)="push('journal')">
                 <i class="" aria-hidden="true"></i>+ Add Journal
               </a>
             </div>
@@ -142,7 +143,7 @@
 
         <button type="submit" class="uk-button uk-button-blue uk-margin-left"
                 [ngClass]="!dataForm.touched?'uk-disabled':''"
-                (click)="printMyData()">Get my data
+                (click)="submit()">Get my data
         </button>
       </div>
 
