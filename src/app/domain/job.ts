@@ -33,3 +33,17 @@ export class ServiceArgument {
     this.user = null;
   }
 }
+
+export class BrowseJob {
+  id: string;
+  name: string;
+  label: string;
+  createdAt: string;
+  launchedAt: string;
+  finishedAt: string;
+  user: string;
+  infraId: string;
+  callerAttributes: string;
+  status: string;
+
+}

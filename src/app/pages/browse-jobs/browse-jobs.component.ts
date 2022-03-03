@@ -1,5 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {CatalogueService} from "../../services/catalogue.service";
+import {BrowseJob} from "../../domain/job";
 
 
 @Component({
@@ -9,7 +10,7 @@ import {CatalogueService} from "../../services/catalogue.service";
 
 export class BrowseJobsComponent implements OnInit{
 
-  jobs: any = null;
+  jobs: BrowseJob[] = [];
 
   constructor(private catalogueService: CatalogueService) {
   }
