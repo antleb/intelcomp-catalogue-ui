@@ -44,6 +44,7 @@ export class BrowseJob {
   user: string;
   infraId: string;
   callerAttributes: string;
-  status: string;
+  callerAttributesObj: object;
+  mergedStatus: string;
 
 }

@@ -54,24 +54,24 @@
           </div>
         </div>
 
-        <div formArrayName="publisher" class="uk-margin-large-bottom">
-          <label class="uk-form-label uk-text-right" for="publisher">
+        <div formArrayName="funder" class="uk-margin-large-bottom">
+          <label class="uk-form-label uk-text-right" for="funder">
             Publisher
           </label>
           <div class="uk-form-controls uk-margin-medium-top">
-            <div *ngFor="let publisher of getFieldAsFormArray('publisher').controls; let i=index"
+            <div *ngFor="let funder of getFieldAsFormArray('funder').controls; let i=index"
                  class="uk-margin-bottom">
-              <input id="publisher" class="uk-input uk-width-9-10 uk-animation-slide-top-small"
+              <input id="funder" class="uk-input uk-width-9-10 uk-animation-slide-top-small"
                      type="text" [formControlName]="i">
-              <a *ngIf="getFieldAsFormArray('publisher').length > 1"
+              <a *ngIf="getFieldAsFormArray('funder').length > 1"
                  class="remove-element uk-padding-small"
-                 (click)="remove('publisher', i)">
+                 (click)="remove('funder', i)">
                 <i class="" aria-hidden="true">X</i>
               </a>
             </div>
             <div class="uk-width-9-10 uk-text-center uk-margin-medium-top">
               <a class="add-new-element"
-                 (click)="push('publisher')">
+                 (click)="push('funder')">
                 <i class="" aria-hidden="true"></i>+ Add Publisher
               </a>
             </div>
