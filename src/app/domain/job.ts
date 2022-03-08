@@ -46,5 +46,13 @@ export class BrowseJob {
   callerAttributes: string;
   callerAttributesObj: object;
   mergedStatus: string;
+  status: Status[];
+}
 
+export class Status {
+  id: string;
+  timestamp: string;
+  status: string;
+  source: string;
+  payload: string;
 }

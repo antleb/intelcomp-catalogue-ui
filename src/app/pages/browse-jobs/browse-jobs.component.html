@@ -1,38 +1,89 @@
-<div *ngIf="jobs.length > 0" class="uk-container uk-container-large uk-margin">
-  <div class="uk-grid">
-    <div class="uk-width-1-1">
-      <h3 class="uk-flex uk-flex-center uk-margin">My Data Requests</h3>
-      <div *ngFor="let job of jobs" class="uk-flex uk-flex-center uk-margin-bottom">
-        <div class="uk-card uk-card-default uk-width-2-3">
+<div class="uk-section uk-section-default">
+  <div *ngIf="jobs.length > 0" class="uk-container uk-container-large uk-margin">
 
-          <div class="uk-card-body">
-            <h6>{{getValueFromObject(job.callerAttributesObj, 'name')}} ({{getValueFromObject(job.callerAttributesObj, 'version')}})</h6>
-            <span>{{getValueFromObject(job.callerAttributesObj, 'entity')}}
-              (<span *ngFor="let attr of getJobArguments(job.callerAttributesObj)">
-                <span *ngIf="attr['name'] !== 'datasetId'">
-                  {{attr['name']}}: {{attr['value']}},
-                </span>
-              </span>)
-            </span>
-            <hr>
-            <div uk-grid>
-              <div class="uk-width-2-3">
-                <div *ngIf="job.createdAt" class="uk-margin-small-bottom">
-                  Created on: {{job.createdAt | date}}
-                </div>
-                <div *ngIf="job.finishedAt" class="uk-margin-small-bottom">
-                  Finished at: {{job.finishedAt | date}}
-                </div>
-              </div>
-              <div class="uk-width-1-3 uk-flex uk-flex-right">
-                {{job.mergedStatus}}
-              </div>
+    <h4 class="uk-margin">My Data Requests</h4>
+
+    <div class="uk-card uk-card-default uk-card-body uk-margin-medium-top">
+      <table class="uk-table uk-table-divider">
+        <thead>
+        <tr>
+          <th>Dataset</th>
+          <th>Entity</th>
+          <th>Status</th>
+          <th class="uk-width-medium">Data path</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let job of jobs">
+          <td>
+            <div>{{getValueFromObject(job.callerAttributesObj, 'name')}}</div>
+            <div>({{getValueFromObject(job.callerAttributesObj, 'version')}})</div>
+          </td>
+          <td>
+            <div>Entity: {{getValueFromObject(job.callerAttributesObj, 'entity')}}</div>
+            <div class="uk-margin-top"><strong>Filters</strong></div>
+            <div *ngFor="let attr of getJobArguments(job.callerAttributesObj)">
+              <ng-container *ngIf="attr['name'] !== 'datasetId'">
+                {{attr['name']}}: {{attr['value']}}
+              </ng-container>
             </div>
-          </div>
-        </div>
-      </div>
+          </td>
+          <td>
+            <div>{{job.mergedStatus}}</div>
+            <div *ngIf="job.createdAt">Created: {{job.createdAt | date:'medium'}}</div>
+            <div *ngIf="job.status && job.status.length>0 && job.status[0].status=='FINISHED'">Finished: {{job.status[0].timestamp | date:'medium'}}</div>
+          </td>
+          <td>
+            <ng-container *ngFor="let status of job.status">
+              <ng-container *ngIf="status.status=='finished' && status.source=='spark'">
+                {{status.payload}}
+              </ng-container>
+            </ng-container>
+          </td>
+        </tr>
+        </tbody>
+      </table>
     </div>
+
+
+
+    <!--<div class="uk-grid">-->
+      <!--<div class="uk-width-1-1">-->
+        <!--<h3 class="uk-flex uk-flex-center uk-margin">My Data Requests</h3>-->
+        <!--<div *ngFor="let job of jobs" class="uk-flex uk-flex-center uk-margin-bottom">-->
+          <!--<div class="uk-card uk-card-default uk-width-2-3">-->
+
+            <!--<div class="uk-card-body">-->
+              <!--<h6>{{getValueFromObject(job.callerAttributesObj, 'name')}} ({{getValueFromObject(job.callerAttributesObj, 'version')}})</h6>-->
+              <!--<span>{{getValueFromObject(job.callerAttributesObj, 'entity')}}-->
+              <!--(<span *ngFor="let attr of getJobArguments(job.callerAttributesObj)">-->
+                <!--<span *ngIf="attr['name'] !== 'datasetId'">-->
+                  <!--{{attr['name']}}: {{attr['value']}},-->
+                <!--</span>-->
+              <!--</span>)-->
+            <!--</span>-->
+              <!--<hr>-->
+              <!--<div uk-grid>-->
+                <!--<div class="uk-width-2-3">-->
+                  <!--<div *ngIf="job.createdAt" class="uk-margin-small-bottom">-->
+                    <!--Created on: {{job.createdAt | date}}-->
+                  <!--</div>-->
+                  <!--<div *ngIf="job.finishedAt" class="uk-margin-small-bottom">-->
+                    <!--Finished at: {{job.finishedAt | date}}-->
+                  <!--</div>-->
+                <!--</div>-->
+                <!--<div class="uk-width-1-3 uk-flex uk-flex-right">-->
+                  <!--{{job.mergedStatus}}-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
   </div>
+
+  <!--<pre>{{jobs | json}}</pre>-->
 </div>
 
-<pre>{{jobs | json}}</pre>
+
