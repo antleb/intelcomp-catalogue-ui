@@ -6,12 +6,11 @@
         <div class="uk-card uk-card-default uk-width-2-3">
 
           <div class="uk-card-body">
-            <h6>{{getValueFromObject(job.id, 'name')}} ({{getValueFromObject(job.id, 'version')}})</h6>
-            <span>{{getValueFromObject(job.id, 'entity')}}
-              (<span *ngFor="let attr of job.callerAttributesObj | keyvalue">
-                <span *ngIf="attr.value['name'] !== 'datasetId' && attr.value['name'] !== 'version'
-                            && attr.value['name'] !== 'name' && attr.value['name'] !== 'entity'">
-                  {{attr.value['name']}}: {{attr.value['value']}},
+            <h6>{{getValueFromObject(job.callerAttributesObj, 'name')}} ({{getValueFromObject(job.callerAttributesObj, 'version')}})</h6>
+            <span>{{getValueFromObject(job.callerAttributesObj, 'entity')}}
+              (<span *ngFor="let attr of getJobArguments(job.callerAttributesObj)">
+                <span *ngIf="attr['name'] !== 'datasetId'">
+                  {{attr['name']}}: {{attr['value']}},
                 </span>
               </span>)
             </span>

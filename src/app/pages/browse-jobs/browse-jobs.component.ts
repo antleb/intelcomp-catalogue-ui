@@ -27,13 +27,24 @@ export class BrowseJobsComponent implements OnInit{
     )
   }
 
-  getValueFromObject(id: string, valueName: string) {
-    for (const job of this.jobs) {
-      if (job.id === id) {
-        for (const callerAttributesObjElement in job.callerAttributesObj) {
-          if (job.callerAttributesObj[callerAttributesObjElement]['name'] === valueName) {
-            return job.callerAttributesObj[callerAttributesObjElement]['value'];
-          }
+  getJobArguments(obj: object) {
+    for (const [key, value] of Object.entries(obj)) {
+      // console.log(`key: ${key} value: ${value}`);
+      for (const [subKey, subValue] of Object.entries(value)) {
+        if (subKey === 'jobArguments') {
+          console.log(subValue);
+          return subValue as [object];
+        }
+      }
+    }
+    return []
+  }
+
+  getValueFromObject(obj: object, keyName: string) {
+    for (const [key, value] of Object.entries(obj)) {
+      for (const [subKey, subValue] of Object.entries(value)) {
+        if (subKey === keyName) {
+          return subValue;
         }
       }
     }

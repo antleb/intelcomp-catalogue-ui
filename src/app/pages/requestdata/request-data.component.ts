@@ -145,7 +145,11 @@ export class RequestDataComponent implements OnInit, OnDestroy {
     this.jobArguments.push({'name': this.dataset['name']});
     this.jobArguments.push({'entity': this.dataForm.get('entity').value});
     this.job.callerAttributes = JSON.stringify(this.jobArguments);
-    this.job.serviceArguments.processId = 'TouJohny2';
+    if ( this.instance['type'] === 'OpenAIRE Graph') {
+      this.job.serviceArguments.processId = 'openaire-graph-kubernetes';
+    } else {
+      this.job.serviceArguments.processId = 'clinical-trials-kubernetes';
+    }
 
     console.log(this.job);
 
