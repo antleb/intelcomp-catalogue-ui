@@ -315,7 +315,7 @@ a.footerLink:hover {
 }
 
 .uk-button-primary {
-  background: transparent linear-gradient(254deg, var(--openaire-light-blue) 0%, var(--catalogue-light-purple) 100%) 0 0 no-repeat padding-box;
+  background-color: var(--intelcomp-light-color);
   /*font: normal normal bold 12px/15px var(--main-font-family);*/
   border-radius: 60px;
   opacity: 1;
@@ -324,7 +324,7 @@ a.footerLink:hover {
 }
 
 .uk-button-primary:hover {
-  background: transparent linear-gradient(254deg, var(--catalogue-light-purple) 0%, var(--catalogue-light-purple) 100%) 0 0 no-repeat padding-box;
+  background-color: var(--intelcomp-dark-color);
 }
 
 .uk-card-primary.uk-card-body .uk-button-primary, .uk-card-primary > :not([class*="uk-card-media"]) .uk-button-primary {
