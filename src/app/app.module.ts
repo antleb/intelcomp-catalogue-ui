@@ -5,7 +5,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {HomeComponent} from "./pages/home/home.component";
 import {HttpClientModule} from "@angular/common/http";
-import {ReusableComponentsModule} from "../catalogue-ui/shared/reusable-components/reusable-components.module";
+// import {ReusableComponentsModule} from "../catalogue-ui/shared/reusable-components/reusable-components.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CatalogueUiModule} from "../catalogue-ui/catalogue-ui.module";
 import {IntelcompSearchComponent} from "./pages/search/intelcomp-search.component";
@@ -19,6 +19,7 @@ import {SurveyService} from "./services/survey.service";
 import {FormComponent} from "./pages/form/form.component";
 import {DynamicFormModule} from "../catalogue-ui/pages/dynamic-form/dynamic-form.module";
 import {BrowseJobsComponent} from "./pages/browse-jobs/browse-jobs.component";
+import {ReusableComponentsModule} from "./shared/reusablecomponents/reusable-components.module";
 
 @NgModule({
   declarations: [
