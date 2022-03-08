@@ -20,8 +20,8 @@
             <div>({{getValueFromObject(job.callerAttributesObj, 'version')}})</div>
           </td>
           <td>
-            <div>Entity: {{getValueFromObject(job.callerAttributesObj, 'entity')}}</div>
-            <div class="uk-margin-top"><strong>Filters</strong></div>
+            <div>{{getValueFromObject(job.callerAttributesObj, 'entity')}}</div>
+            <div class="uk-margin-top uk-text-meta">Filters</div>
             <div *ngFor="let attr of getJobArguments(job.callerAttributesObj)">
               <ng-container *ngIf="attr['name'] !== 'datasetId'">
                 {{attr['name']}}: {{attr['value']}}
@@ -29,7 +29,7 @@
             </div>
           </td>
           <td>
-            <div>{{job.mergedStatus}}</div>
+            <div class="uk-margin-bottom"><strong>{{job.mergedStatus}}</strong></div>
             <div *ngIf="job.createdAt">Created: {{job.createdAt | date:'medium'}}</div>
             <div *ngIf="job.status && job.status.length>0 && job.status[0].status=='FINISHED'">Finished: {{job.status[0].timestamp | date:'medium'}}</div>
           </td>
