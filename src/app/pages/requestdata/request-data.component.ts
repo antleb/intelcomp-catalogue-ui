@@ -14,10 +14,10 @@ declare var UIkit: any;
 export class RequestDataComponent implements OnInit, OnDestroy {
 
   formPrepare = {
-    // entity: 'publication',
+    entity: 'publication',
     dateFrom: '',
     dateTo: '',
-    publisher: this.fb.array([this.fb.control('')]),
+    funder: this.fb.array([this.fb.control('')]),
     journal: this.fb.array([this.fb.control('')]),
     projects: this.fb.array([
       this.fb.group({
@@ -35,6 +35,7 @@ export class RequestDataComponent implements OnInit, OnDestroy {
   instanceId: string;
 
   job: Job = new Job();
+  jobArguments: JobArguments[] =  [];
 
   constructor(
     private fb: FormBuilder,
@@ -89,6 +90,9 @@ export class RequestDataComponent implements OnInit, OnDestroy {
   }
 
   submit() {
+    this.job.jobArguments.push(new JobArguments('datasetId', this.instance['metadata']['identifier']['value']));
+
+
     for (const [key, value] of Object.entries(this.dataForm.getRawValue())) {
 
       if (typeof value === 'object' && !Array.isArray(value) && value !== null) {
@@ -113,16 +117,23 @@ export class RequestDataComponent implements OnInit, OnDestroy {
           }
         }
 
-      } else if (value !== '') {
+      } else if (value !== '' && key !== 'entity') {
         console.log(`${key}: ${value}`);
-
         this.job.jobArguments.push(new JobArguments(key, value.toString()));
       }
     }
 
     console.log(this.job);
-    this.job.callerAttributes = JSON.stringify(this.job.jobArguments);
+    for (let i = 0; i < this.job.jobArguments.length; i++) {
+      this.jobArguments.push(this.job.jobArguments[i]);
+    }
+    this.jobArguments.push(new JobArguments('version', this.instance['metadata']['version']));
+    this.jobArguments.push(new JobArguments('name', this.dataset['name']));
+    this.jobArguments.push(new JobArguments('entity', this.dataForm.get('entity').value));
+    console.log(this.jobArguments);
+    this.job.callerAttributes = JSON.stringify(this.jobArguments);
     this.job.serviceArguments.processId = 'TouJohny2';
+
     this.catalogueService.addJob(this.job).subscribe(
       res => {console.log(res)},
       error => {console.log(error)}

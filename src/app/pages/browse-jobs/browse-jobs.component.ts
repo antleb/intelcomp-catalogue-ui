@@ -19,7 +19,25 @@ export class BrowseJobsComponent implements OnInit{
     this.catalogueService.getJobs().subscribe(
       res => {this.jobs = res},
       error => {console.log(error)},
+      () => {
+        for (const job of this.jobs) {
+          job.callerAttributesObj = JSON.parse(job.callerAttributes);
+        }
+      }
     )
+  }
+
+  getValueFromObject(id: string, valueName: string) {
+    for (const job of this.jobs) {
+      if (job.id === id) {
+        for (const callerAttributesObjElement in job.callerAttributesObj) {
+          if (job.callerAttributesObj[callerAttributesObjElement]['name'] === valueName) {
+            return job.callerAttributesObj[callerAttributesObjElement]['value'];
+          }
+        }
+      }
+    }
+    return null;
   }
 
 }
