@@ -20,6 +20,8 @@ import {FormComponent} from "./pages/form/form.component";
 import {DynamicFormModule} from "../catalogue-ui/pages/dynamic-form/dynamic-form.module";
 import {BrowseJobsComponent} from "./pages/browse-jobs/browse-jobs.component";
 import {ReusableComponentsModule} from "./shared/reusablecomponents/reusable-components.module";
+import {AuthenticationService} from "./services/authentication.service";
+import {UserService} from "./services/user.service";
 
 @NgModule({
   declarations: [
@@ -46,6 +48,8 @@ import {ReusableComponentsModule} from "./shared/reusablecomponents/reusable-com
   providers: [
     CatalogueService,
     NavigationService,
+    AuthenticationService,
+    UserService,
     SurveyService
   ],
   bootstrap: [AppComponent]

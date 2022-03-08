@@ -1,4 +1,5 @@
 import {Component, OnInit} from "@angular/core";
+import {AuthenticationService} from "../../../services/authentication.service";
 
 @Component({
   selector: 'app-top-menu-landing',
@@ -10,7 +11,7 @@ export class TopMenuLandingComponent implements OnInit {
 
   showLogin = true;
 
-  constructor() {
+  constructor(private authentication: AuthenticationService) {
   }
 
   ngOnInit() {
@@ -18,7 +19,7 @@ export class TopMenuLandingComponent implements OnInit {
   }
 
   logInButton() {
-    // this.authentication.login();
+    this.authentication.login();
   }
 
   logout() {

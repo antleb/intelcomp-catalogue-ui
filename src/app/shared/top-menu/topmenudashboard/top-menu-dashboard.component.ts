@@ -1,5 +1,8 @@
 import {Component, Input, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
+import {UserService} from "../../../services/user.service";
+import {UserInfo} from "../../../domain/userInfo";
+import {AuthenticationService} from "../../../services/authentication.service";
 
 @Component({
   selector: 'app-top-menu-dashboard',
@@ -9,11 +12,30 @@ import {Router} from "@angular/router";
 
 export class TopMenuDashboardComponent implements OnInit {
 
-  constructor(private router: Router) {
+  userInfo: UserInfo = null;
+
+  constructor(private userService: UserService, private authenticationService: AuthenticationService) {
   }
 
   ngOnInit() {
 
+    this.userService.getUserInfo().subscribe(
+      res => {
+        this.userInfo = res;
+        // console.log(this.userInfo);
+      }, error => {
+        console.log(error);
+      }
+    );
+
+  }
+
+  parseUsername() {
+    let firstLetters = "";
+    let matches = this.userInfo.fullname.match(/\b(\w)/g);
+    if(matches)
+      firstLetters += matches.join('');
+    return firstLetters;
   }
 
   change() {
@@ -27,5 +49,9 @@ export class TopMenuDashboardComponent implements OnInit {
       const el1: HTMLElement = document.getElementById('sidebar_main_content');
       el1.classList.add('sidebar_main_active');
     }
+  }
+
+  logout() {
+    this.authenticationService.logout();
   }
 }

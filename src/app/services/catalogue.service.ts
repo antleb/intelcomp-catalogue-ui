@@ -30,4 +30,8 @@ export class CatalogueService {
     return this.http.post(this.base + '/jobs/execute', job) ;
   }
 
+  getInternalId(id: string) {
+    return this.http.get(this.base + `/datasets/instances/${id}/internalid`, { responseType: 'text'});
+  }
+
 }

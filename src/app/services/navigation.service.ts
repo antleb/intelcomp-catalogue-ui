@@ -18,19 +18,12 @@ export class NavigationService {
     }
 
     public setDataRequestIds(instanceId: string, datasetId: string) {
-      console.log('setting instanceID', instanceId);
-      console.log('setting instanceID', datasetId);
-      console.log('set dataRequestIdsObservable', this.dataRequestIds);
       this.dataRequestIds.next({instanceId:instanceId, datasetId:datasetId});
     }
 
     public get dataRequestIds$() {
-      console.log('get dataRequestIdsObservable', this.dataRequestIds);
+      // console.log('get dataRequestIdsObservable', this.dataRequestIds);
       return this.dataRequestIds.asObservable();
     }
-    // public get dataRequestIdsObservable() {
-    //   console.log('get dataRequestIdsObservable', this.dataRequestIds);
-    //   return this.dataRequestIds;
-    // }
 
 }

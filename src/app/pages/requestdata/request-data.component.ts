@@ -32,10 +32,10 @@ export class RequestDataComponent implements OnInit, OnDestroy {
   instance: Object = null;
   dataset: Object = null;
 
-  instanceId: string;
+  internalId: string;
 
   job: Job = new Job();
-  jobArguments: JobArguments[] =  [];
+  jobArguments = [];
 
   constructor(
     private fb: FormBuilder,
@@ -46,41 +46,57 @@ export class RequestDataComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.dataForm = this.fb.group(this.formPrepare);
 
-    this.navigationService.dataRequestIds$.subscribe(dataRequestIds => {
-      console.log('show dataRequestIds:',dataRequestIds);
+    this.navigationService.dataRequestIds.subscribe(
+      dataRequestIds => {
+        console.log('show dataRequestIds:', dataRequestIds);
         if (dataRequestIds) {
-          console.log('before call',dataRequestIds.instanceId, dataRequestIds.datasetId);
+          console.log('before call', dataRequestIds.instanceId, dataRequestIds.datasetId);
           this.catalogueService.getResourceTypeById(dataRequestIds.instanceId, 'dataset_instance').subscribe(
             res => {
               this.instance = res;
-              console.log(this.instance);
-            }
-          )
-        } else {
-          console.log('there is no dataRequestIds');
-        }
-        },
-        error => {console.log(error);},
-        () => {console.log('subject is', this.navigationService.dataRequestIds$);}
-      )
-
-    this.navigationService.dataRequestIds$.subscribe(dataRequestIds => {
-        // console.log('show dataRequestIds:',dataRequestIds);
-        if (dataRequestIds) {
-          // console.log('before call',dataRequestIds.instanceId, dataRequestIds.datasetId);
-          this.catalogueService.getResourceTypeById(dataRequestIds.datasetId, 'dataset_type').subscribe(
-            res => {
-              this.dataset = res;
-              console.log(this.dataset);
+              console.log(dataRequestIds.instanceId);
+              this.catalogueService.getInternalId(dataRequestIds.instanceId).subscribe(
+                res => {
+                  this.internalId = res.toString();
+                },
+                error => {console.log(error);}
+              );
             }
           )
         } else {
           console.log('there is no dataRequestIds');
         }
       },
-      error => {console.log('error');},
-      () => {console.log('subject is', this.navigationService.dataRequestIds$);}
-    )
+      error => {
+        console.log(error);
+      },
+      () => {
+        console.log('subject is', this.navigationService.dataRequestIds$);
+      }
+    );
+
+    this.navigationService.dataRequestIds.subscribe(
+      dataRequestIds => {
+        // console.log('show dataRequestIds:',dataRequestIds);
+        if (dataRequestIds) {
+          // console.log('before call',dataRequestIds.instanceId, dataRequestIds.datasetId);
+          this.catalogueService.getResourceTypeById(dataRequestIds.datasetId, 'dataset_type').subscribe(
+            res => {
+              this.dataset = res;
+              // console.log(this.dataset);
+            }
+          )
+        } else {
+          console.log('there is no dataRequestIds');
+        }
+      },
+      error => {
+        console.log('error');
+      },
+      () => {
+      }
+    );
+
   }
 
   ngOnDestroy(): void {
@@ -90,7 +106,9 @@ export class RequestDataComponent implements OnInit, OnDestroy {
   }
 
   submit() {
-    this.job.jobArguments.push(new JobArguments('datasetId', this.instance['metadata']['identifier']['value']));
+    // this.job.jobArguments.push(new JobArguments('datasetId', this.instance['id']));
+    console.log(this.internalId);
+    this.job.jobArguments.push(new JobArguments('datasetId', this.internalId));
 
 
     for (const [key, value] of Object.entries(this.dataForm.getRawValue())) {
@@ -101,18 +119,17 @@ export class RequestDataComponent implements OnInit, OnDestroy {
         }
       } else if (typeof value === 'object' && Array.isArray(value) && value !== null) {
         let tmpArr = this.dataForm.get(key) as FormArray;
-        console.log(tmpArr);
         for (let i = 0; i < value.length; i++) {
           if (typeof value[i] === 'object' && !Array.isArray(value[i])) {
             for (let j = 0; j < tmpArr.length; j++) {
-              console.log(tmpArr[j]);
+              // console.log(tmpArr[j]);
             }
             // for (const [subKey, subValue] of Object.entries(this.dataForm.get(key)[i].value)) {
             //   console.log(`${subKey}: ${subValue}`);
               // console.log(this.dataForm.get(key).get(subKey).value);
             // }
           } else if (value[i] !== '') {
-            console.log(`${key}: ${value[i]}`);
+            // console.log(`${key}: ${value[i]}`);
             this.job.jobArguments.push(new JobArguments(key, value[i].toString()));
           }
         }
@@ -123,16 +140,14 @@ export class RequestDataComponent implements OnInit, OnDestroy {
       }
     }
 
-    console.log(this.job);
-    for (let i = 0; i < this.job.jobArguments.length; i++) {
-      this.jobArguments.push(this.job.jobArguments[i]);
-    }
-    this.jobArguments.push(new JobArguments('version', this.instance['metadata']['version']));
-    this.jobArguments.push(new JobArguments('name', this.dataset['name']));
-    this.jobArguments.push(new JobArguments('entity', this.dataForm.get('entity').value));
-    console.log(this.jobArguments);
+    this.jobArguments.push({'jobArguments': this.job.jobArguments})
+    this.jobArguments.push({'version': this.instance['metadata']['version']});
+    this.jobArguments.push({'name': this.dataset['name']});
+    this.jobArguments.push({'entity': this.dataForm.get('entity').value});
     this.job.callerAttributes = JSON.stringify(this.jobArguments);
     this.job.serviceArguments.processId = 'TouJohny2';
+
+    console.log(this.job);
 
     this.catalogueService.addJob(this.job).subscribe(
       res => {console.log(res)},
