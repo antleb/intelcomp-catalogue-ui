@@ -15,5 +15,16 @@ export class IntelcompSearchComponent extends SearchComponent{
   languagesFilters = [];
   publisherFilters = [];
 
+  clearFilter(e, filterType: string) {
+    e.value.isChecked = false;
+    let tmp = {'target': {'checked': false}};
+    this.onSelection(tmp, filterType, e.value.value);
+  }
+
+  addFilter(e, filterType: string) {
+    let tmp = {'target': {'checked': true}};
+    this.onSelection(tmp, filterType, e.value);
+  }
+
   // makes more sense for Search component to be implemented and not to be extended
 }

@@ -41,11 +41,13 @@
                 [closeOnSelect]="false"
                 [hideSelected]="false"
                 [clearable]="false"
+                (remove)="clearFilter($event, facet.field)"
+                (add)="addFilter($event, facet.field)"
                 bindLabel="value"
                 [(ngModel)]="this[facet.field+'Filters']">
                 <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
                   <input (change)="this.onSelection($event, facet.field, item.value)" id="item-{{index}}"
-                         type="checkbox" [checked]="item['isChecked']"/>
+                         type="checkbox" [(ngModel)]="item$.selected" [checked]="item['isChecked']"/>
                   {{item.value + ' (' + item.count + ')'}}
                 </ng-template>
               </ng-select>
