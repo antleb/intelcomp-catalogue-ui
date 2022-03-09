@@ -31,7 +31,8 @@
           <td>
             <div class="uk-margin-bottom"><strong>{{job.mergedStatus}}</strong></div>
             <div *ngIf="job.createdAt">Created: {{job.createdAt | date:'medium'}}</div>
-            <div *ngIf="job.status && job.status.length>0 && job.status[0].status=='FINISHED'">Finished: {{job.status[0].timestamp | date:'medium'}}</div>
+            <div *ngIf="job.status && job.status.length>0 && (job.status[0].status=='FINISHED' || job.status[0].status=='finished')">Finished: {{job.status[0].timestamp | date:'medium'}}</div>
+            <div *ngIf="job.status && job.status.length>0 && (job.status[0].status=='FAILED' || job.status[0].status=='failed')">Failed: {{job.status[0].timestamp | date:'medium'}}</div>
           </td>
           <td>
             <ng-container *ngFor="let status of job.status">
