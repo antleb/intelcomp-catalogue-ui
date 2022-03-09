@@ -11,4 +11,9 @@ import {SearchService} from "../../../catalogue-ui/services/search.service";
 
 export class IntelcompSearchComponent extends SearchComponent{
   itemPath = '/dataset/';
+  rightsFilters = [];
+  languagesFilters = [];
+  publisherFilters = [];
+
+  // makes more sense for Search component to be implemented and not to be extended
 }

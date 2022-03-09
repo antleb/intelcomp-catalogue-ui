@@ -22,6 +22,7 @@ import {BrowseJobsComponent} from "./pages/browse-jobs/browse-jobs.component";
 import {ReusableComponentsModule} from "./shared/reusablecomponents/reusable-components.module";
 import {AuthenticationService} from "./services/authentication.service";
 import {UserService} from "./services/user.service";
+import {NgSelectModule} from "@ng-select/ng-select";
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import {UserService} from "./services/user.service";
     ReusableComponentsModule,
     CatalogueUiModule,
     DynamicFormModule,
+    NgSelectModule,
   ],
   providers: [
     CatalogueService,

@@ -14,7 +14,7 @@ export class CatalogueService {
   }
 
   getResourceTypeById(id: string, resourceType: string) {
-    console.log('knocking on:', this.base + `/items/${id}?resourceType=${resourceType}`);
+    // console.log('knocking on:', this.base + `/items/${id}?resourceType=${resourceType}`);
     return this.http.get(this.base + `/items/${id}?resourceType=${resourceType}`);
   }
 

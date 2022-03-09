@@ -19,9 +19,9 @@
             </a>
           </div>
 
-          <div  *ngIf="userInfo" class="uk-navbar-right">
+          <div class="uk-navbar-right">
             <div id="navigation">
-              <ul class="uk-navbar-nav user_actions">
+              <ul *ngIf="userInfo" class="uk-navbar-nav user_actions">
                 <li>
                   <div>
                     <a class="uk-icon ng-star-inserted" aria-expanded="false">
@@ -59,6 +59,13 @@
                   </div>
                 </li>
               </ul>
+              <ul *ngIf="!userInfo" class="uk-navbar-nav user_actions">
+                <li>
+                  <div>
+                    <a class="uk-button uk-button-link" (click)="login()">Login</a>
+                  </div>
+                </li>
+              </ul>
             </div>
           </div>
 
@@ -71,47 +78,3 @@
 
   </div>
 </div>
-
-
-<!--<header id="header_main">-->
-  <!--<nav class="uk-navbar uk-light fixed-navbar">-->
-
-    <!--<div class="uk-container uk-container-expand">-->
-
-      <!--<div id="hamburger" class="hamburger change">-->
-
-      <!--</div>-->
-
-      <!--<a class="logo">-->
-        <!--<img src="">-->
-      <!--</a>-->
-
-      <!--<div id="navigation">-->
-        <!--<ul class="uk-navbar-nav user_actions">-->
-          <!--<li>-->
-            <!--<div>-->
-              <!--<a class="uk-icon ng-star-inserted" aria-expanded="false">-->
-                <!--<svg height="60" width="60">-->
-                  <!--<circle cx="30" cy="30" r="20" stroke-width="1"></circle>-->
-                  <!--<text dy=".4em" font-size="16" text-anchor="middle" x="50%" y="50%" class="ng-star-inserted"> {{ parseUsername() }} </text>-->
-                <!--</svg>-->
-                <!--&lt;!&ndash;<i class="material-icons">keyboard_arrow_down</i>&ndash;&gt;-->
-              <!--</a>-->
-              <!--<div class="uk-padding-remove-horizontal ng-star-inserted uk-dropdown" uk-dropdown="mode: click; offset: -2; delay-hide: 0; flip: false; pos: bottom-right">-->
-                <!--<ul class="uk-nav uk-dropdown-nav">-->
-                  <!--<li>-->
-                    <!--<a id="logout" (click)="logout()">Log out</a>-->
-                  <!--</li>-->
-                <!--</ul>-->
-              <!--</div>&lt;!&ndash;&ndash;&gt;-->
-              <!--<div id="logout2"></div>-->
-            <!--</div>-->
-          <!--</li>-->
-        <!--</ul>-->
-      <!--</div>-->
-
-    <!--</div>-->
-
-  <!--</nav>-->
-
-<!--</header>&lt;!&ndash; main header end &ndash;&gt;-->

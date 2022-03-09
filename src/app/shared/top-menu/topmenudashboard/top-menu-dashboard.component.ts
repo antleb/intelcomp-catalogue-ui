@@ -54,4 +54,9 @@ export class TopMenuDashboardComponent implements OnInit {
   logout() {
     this.authenticationService.logout();
   }
+
+  login() {
+    this.authenticationService.login();
+  }
+
 }

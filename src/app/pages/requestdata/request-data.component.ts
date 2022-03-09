@@ -3,6 +3,7 @@ import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {NavigationService} from "../../services/navigation.service";
 import {CatalogueService} from "../../services/catalogue.service";
 import {Job, JobArguments} from "../../domain/job";
+import {Router} from "@angular/router";
 
 declare var UIkit: any;
 
@@ -39,6 +40,7 @@ export class RequestDataComponent implements OnInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
+    public router: Router,
     private navigationService: NavigationService,
     private catalogueService: CatalogueService,
   ) {}
@@ -48,13 +50,10 @@ export class RequestDataComponent implements OnInit, OnDestroy {
 
     this.navigationService.dataRequestIds.subscribe(
       dataRequestIds => {
-        console.log('show dataRequestIds:', dataRequestIds);
         if (dataRequestIds) {
-          console.log('before call', dataRequestIds.instanceId, dataRequestIds.datasetId);
           this.catalogueService.getResourceTypeById(dataRequestIds.instanceId, 'dataset_instance').subscribe(
             res => {
               this.instance = res;
-              console.log(dataRequestIds.instanceId);
               this.catalogueService.getInternalId(dataRequestIds.instanceId).subscribe(
                 res => {
                   this.internalId = res.toString();
@@ -77,13 +76,10 @@ export class RequestDataComponent implements OnInit, OnDestroy {
 
     this.navigationService.dataRequestIds.subscribe(
       dataRequestIds => {
-        // console.log('show dataRequestIds:',dataRequestIds);
         if (dataRequestIds) {
-          // console.log('before call',dataRequestIds.instanceId, dataRequestIds.datasetId);
           this.catalogueService.getResourceTypeById(dataRequestIds.datasetId, 'dataset_type').subscribe(
             res => {
               this.dataset = res;
-              // console.log(this.dataset);
             }
           )
         } else {
@@ -107,7 +103,6 @@ export class RequestDataComponent implements OnInit, OnDestroy {
 
   submit() {
     // this.job.jobArguments.push(new JobArguments('datasetId', this.instance['id']));
-    console.log(this.internalId);
     this.job.jobArguments.push(new JobArguments('datasetId', this.internalId));
 
 
@@ -115,7 +110,7 @@ export class RequestDataComponent implements OnInit, OnDestroy {
 
       if (typeof value === 'object' && !Array.isArray(value) && value !== null) {
         for (const [subKey, subValue] of Object.entries(this.dataForm.get(key).value)) {
-          console.log(`${subKey}: ${subValue}`);
+          // console.log(`${subKey}: ${subValue}`);
         }
       } else if (typeof value === 'object' && Array.isArray(value) && value !== null) {
         let tmpArr = this.dataForm.get(key) as FormArray;
@@ -135,7 +130,7 @@ export class RequestDataComponent implements OnInit, OnDestroy {
         }
 
       } else if (value !== '' && key !== 'entity') {
-        console.log(`${key}: ${value}`);
+        // console.log(`${key}: ${value}`);
         this.job.jobArguments.push(new JobArguments(key, value.toString()));
       }
     }
@@ -151,13 +146,15 @@ export class RequestDataComponent implements OnInit, OnDestroy {
       this.job.serviceArguments.processId = 'clinical-trials-kubernetes';
     }
 
-    console.log(this.job);
-
     this.catalogueService.addJob(this.job).subscribe(
-      res => {console.log(res)},
-      error => {console.log(error)}
+      res => {
+        this.router.navigate([`/browseJobs`]);
+      },
+      error => {
+        this.job = new Job();
+        console.log(error)
+      }
     );
-    this.job = new Job();
   }
 
   /** manage form arrays--> **/
