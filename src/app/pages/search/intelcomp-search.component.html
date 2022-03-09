@@ -1,4 +1,4 @@
-<div id="tm-main" class="tm-main uk-section uk-section-default" uk-height-viewport="expand: true" style="box-sizing: border-box;">
+<div id="tm-main" class="tm-main uk-section uk-section-default uk-section-small" uk-height-viewport="expand: true" style="box-sizing: border-box;">
   <div class="uk-container uk-container-large">
 
     <!--<div class="uk-grid uk-margin-medium-bottom">-->
@@ -49,13 +49,13 @@
         <div class=" uk-flex">
 
           <ng-template ngFor let-facet [ngForOf]="searchResults.facets">
-            <div *ngIf="facet.field === 'publisher' || facet.field === 'languages' || facet.field === 'rights'" class="uk-margin-right">
+            <div *ngIf="facet.field === 'publisher' || facet.field === 'languages' || facet.field === 'rights'" class="uk-margin-right uk-width-1-3">
               <div class="uk-flex uk-flex-bottom">
                 <!--<p class="big-text uk-margin-remove">{{facet.label}}</p>-->
                 <div class="uk-margin-small-bottom">{{facet.label}}</div>
 <!--                <a class="uk-margin-left" (click)="clearSelections($event, facet.field)">Clear</a>-->
               </div>
-              <ng-select class="ng-select"
+              <ng-select class="uk-width-1-1 ng-select"
                 [items]="facet.values"
                 [multiple]="true"
                 [closeOnSelect]="false"
@@ -107,24 +107,27 @@
 
         <div *ngIf="searchResults.results != null && searchResults.results.length > 0">
 
-          <div class="uk-grid uk-row-first uk-margin-bottom uk-margin-top">
+          <div class="uk-grid uk-row-first uk-margin-bottom uk-margin-large-top">
             <div class="uk-width-1-1">
 
               <div class="uk-flex uk-flex-between uk-flex-middle">
 
-                <p class="big-text uk-margin-remove">
-                  <span class="uk-text-bold">{{searchResults.total}}</span> Datasets, Page <span class="uk-text-bold">{{currentPage}}</span> of {{totalPages}}
-                </p>
+                <div class=" uk-margin-remove">
+                  Showing <span class="uk-text-bold">{{searchResults.from + 1}}</span> - <span class="uk-text-bold">{{searchResults.to}}</span> of <span class="uk-text-bold">{{searchResults.total}}</span> datasets
+                  <!--<span class="uk-text-bold">{{searchResults.total}}</span> Datasets, Page <span class="uk-text-bold">{{currentPage}}</span> of {{totalPages}}-->
+                </div>
 
-                <ul class="uk-pagination uk-visible@m">
-                  <li *ngIf="currentPage>2 && pageTotal>5"><a (click)="goToPage(1)"><span uk-pagination-previous></span><span uk-pagination-previous></span></a></li>
-                  <li *ngIf="currentPage!==1"><a (click)="previousPage()"><span uk-pagination-previous></span></a></li>
-                  <li *ngFor="let i of pages" [ngClass]="i === currentPage ? 'uk-active': ''">
-                    <a (click)="goToPage(i)">{{i}}</a>
-                  </li>
-                  <li *ngIf="currentPage!==pageTotal"><a (click)="nextPage()"><span uk-pagination-next></span></a></li>
-                  <li *ngIf="currentPage<pageTotal-1 && pageTotal>5"><a (click)="goToPage(pageTotal)"><span uk-pagination-next></span><span uk-pagination-next></span></a></li>
-                </ul>
+                <ng-container *ngIf="pages.length>1">
+                  <ul class="uk-pagination uk-visible@m">
+                    <li *ngIf="currentPage>2 && pageTotal>5"><a (click)="goToPage(1)"><span uk-pagination-previous></span><span uk-pagination-previous></span></a></li>
+                    <li *ngIf="currentPage!==1"><a (click)="previousPage()"><span uk-pagination-previous></span></a></li>
+                    <li *ngFor="let i of pages" [ngClass]="i === currentPage ? 'uk-active': ''">
+                      <a (click)="goToPage(i)">{{i}}</a>
+                    </li>
+                    <li *ngIf="currentPage!==pageTotal"><a (click)="nextPage()"><span uk-pagination-next></span></a></li>
+                    <li *ngIf="currentPage<pageTotal-1 && pageTotal>5"><a (click)="goToPage(pageTotal)"><span uk-pagination-next></span><span uk-pagination-next></span></a></li>
+                  </ul>
+                </ng-container>
 
               </div>
             </div>
@@ -222,15 +225,17 @@
 
           </div>
 
-          <ul class="uk-pagination uk-flex-right uk-margin">
-            <li *ngIf="currentPage>2 && pageTotal>5"><a (click)="goToPage(1)"><span uk-pagination-previous></span><span uk-pagination-previous></span></a></li>
-            <li *ngIf="currentPage!==1"><a (click)="previousPage()"><span uk-pagination-previous></span></a></li>
-            <li *ngFor="let i of pages" [ngClass]="i === currentPage ? 'uk-active': ''">
-              <a (click)="goToPage(i)">{{i}}</a>
-            </li>
-            <li *ngIf="currentPage!==pageTotal"><a (click)="nextPage()"><span uk-pagination-next></span></a></li>
-            <li *ngIf="currentPage<pageTotal-1 && pageTotal>5"><a (click)="goToPage(pageTotal)"><span uk-pagination-next></span><span uk-pagination-next></span></a></li>
-          </ul>
+          <ng-container *ngIf="pages.length>1">
+            <ul class="uk-pagination uk-flex-right uk-margin">
+              <li *ngIf="currentPage>2 && pageTotal>5"><a (click)="goToPage(1)"><span uk-pagination-previous></span><span uk-pagination-previous></span></a></li>
+              <li *ngIf="currentPage!==1"><a (click)="previousPage()"><span uk-pagination-previous></span></a></li>
+              <li *ngFor="let i of pages" [ngClass]="i === currentPage ? 'uk-active': ''">
+                <a (click)="goToPage(i)">{{i}}</a>
+              </li>
+              <li *ngIf="currentPage!==pageTotal"><a (click)="nextPage()"><span uk-pagination-next></span></a></li>
+              <li *ngIf="currentPage<pageTotal-1 && pageTotal>5"><a (click)="goToPage(pageTotal)"><span uk-pagination-next></span><span uk-pagination-next></span></a></li>
+            </ul>
+          </ng-container>
 
         </div>
 
