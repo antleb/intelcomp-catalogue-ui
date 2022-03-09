@@ -32,7 +32,7 @@ export class BrowseJobsComponent implements OnInit{
       // console.log(`key: ${key} value: ${value}`);
       for (const [subKey, subValue] of Object.entries(value)) {
         if (subKey === 'jobArguments') {
-          console.log(subValue);
+          // console.log(subValue);
           return subValue as [object];
         }
       }
