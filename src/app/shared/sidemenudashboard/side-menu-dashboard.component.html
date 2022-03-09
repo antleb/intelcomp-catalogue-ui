@@ -14,7 +14,7 @@
   </div>
 
   <div class="menu_section border_top">
-    <ul>
+    <ul *ngIf="userInfo?.roles && hasRole('OPERATOR_DATA-PROCESSOR')">
 
       <li [routerLinkActive]="['current_section']" class="">
         <a [routerLink]="['request-data']" class="uk-flex uk-flex-middle">

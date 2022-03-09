@@ -7,6 +7,7 @@ import {UserInfo} from "../domain/userInfo";
 export class UserService {
 
   base = environment.API_ENDPOINT;
+  userInfo: UserInfo = null
 
   constructor(public http: HttpClient) {}
 
