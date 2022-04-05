@@ -1,6 +1,7 @@
-import {Component, Input, OnInit, ViewChild} from "@angular/core";
+import {Component, Input, OnDestroy, OnInit, ViewChild} from "@angular/core";
 import {UserService} from "../../services/user.service";
 import {UserInfo} from "../../domain/userInfo";
+import {Subscriber} from "rxjs";
 
 @Component({
   selector: 'app-side-menu-dashboard',
@@ -8,8 +9,9 @@ import {UserInfo} from "../../domain/userInfo";
   styleUrls: ['./side-menu-dashboard.component.css']
 })
 
-export class SideMenuDashboardComponent implements OnInit {
+export class SideMenuDashboardComponent implements OnInit, OnDestroy {
 
+  subscriptions = [];
   toggle: number[] = [];
   userInfo: UserInfo;
 
@@ -17,15 +19,25 @@ export class SideMenuDashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userService.getUserInfo().subscribe(
-      res => {
-        this.userInfo = res;
-        this.userService.userInfo = res;
-        // console.log(this.userInfo);
-      }, error => {
-        console.log(error);
-      }
+    this.subscriptions.push(
+      this.userService.getUserInfo().subscribe(
+        res => {
+          this.userInfo = res;
+          this.userService.userInfo = res;
+          // console.log(this.userInfo);
+        }, error => {
+          console.log(error);
+        }
+      )
     );
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(subscription => {
+      if (subscription instanceof Subscriber) {
+        subscription.unsubscribe();
+      }
+    });
   }
 
   hasRole(role: string) {

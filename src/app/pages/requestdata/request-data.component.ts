@@ -4,6 +4,7 @@ import {NavigationService} from "../../services/navigation.service";
 import {CatalogueService} from "../../services/catalogue.service";
 import {Job, JobArguments} from "../../domain/job";
 import {Router} from "@angular/router";
+import {Subscriber} from "rxjs";
 
 declare var UIkit: any;
 
@@ -37,6 +38,7 @@ export class RequestDataComponent implements OnInit, OnDestroy {
 
   job: Job = new Job();
   jobArguments = [];
+  subscriptions = [];
 
   constructor(
     private fb: FormBuilder,
@@ -48,49 +50,59 @@ export class RequestDataComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.dataForm = this.fb.group(this.formPrepare);
 
-    this.navigationService.dataRequestIds.subscribe(
-      dataRequestIds => {
-        if (dataRequestIds) {
-          this.catalogueService.getResourceTypeById(dataRequestIds.instanceId, 'dataset_instance').subscribe(
-            res => {
-              this.instance = res;
-              this.catalogueService.getInternalId(dataRequestIds.instanceId).subscribe(
+    this.subscriptions.push(
+      this.navigationService.dataRequestIds.subscribe(
+        dataRequestIds => {
+          if (dataRequestIds) {
+            this.subscriptions.push(
+              this.catalogueService.getResourceTypeById(dataRequestIds.instanceId, 'dataset_instance').subscribe(
                 res => {
-                  this.internalId = res.toString();
-                },
-                error => {console.log(error);}
-              );
-            }
-          )
-        } else {
-          console.log('there is no dataRequestIds');
+                  this.instance = res;
+                  this.subscriptions.push(
+                    this.catalogueService.getInternalId(dataRequestIds.instanceId).subscribe(
+                      res => {
+                        this.internalId = res.toString();
+                      },
+                      error => {console.log(error);}
+                    )
+                  );
+                }
+              )
+            );
+          } else {
+            console.log('there is no dataRequestIds');
+          }
+        },
+        error => {
+          console.log(error);
+        },
+        () => {
+          console.log('subject is', this.navigationService.dataRequestIds$);
         }
-      },
-      error => {
-        console.log(error);
-      },
-      () => {
-        console.log('subject is', this.navigationService.dataRequestIds$);
-      }
+      )
     );
 
-    this.navigationService.dataRequestIds.subscribe(
-      dataRequestIds => {
-        if (dataRequestIds) {
-          this.catalogueService.getResourceTypeById(dataRequestIds.datasetId, 'dataset_type').subscribe(
-            res => {
-              this.dataset = res;
-            }
-          )
-        } else {
-          console.log('there is no dataRequestIds');
+    this.subscriptions.push(
+      this.navigationService.dataRequestIds.subscribe(
+        dataRequestIds => {
+          if (dataRequestIds) {
+            this.subscriptions.push(
+              this.catalogueService.getResourceTypeById(dataRequestIds.datasetId, 'dataset_type').subscribe(
+                res => {
+                  this.dataset = res;
+                }
+              )
+            );
+          } else {
+            console.log('there is no dataRequestIds');
+          }
+        },
+        error => {
+          console.log('error');
+        },
+        () => {
         }
-      },
-      error => {
-        console.log('error');
-      },
-      () => {
-      }
+      )
     );
 
   }
@@ -99,6 +111,11 @@ export class RequestDataComponent implements OnInit, OnDestroy {
     this.navigationService.setDataRequestIds(null, null);
     this.instance = null;
     this.dataset = null;
+    this.subscriptions.forEach(subscription => {
+      if (subscription instanceof Subscriber) {
+        subscription.unsubscribe();
+      }
+    });
   }
 
   submit() {
@@ -146,14 +163,16 @@ export class RequestDataComponent implements OnInit, OnDestroy {
       this.job.serviceArguments.processId = 'clinical-trials-kubernetes';
     }
 
-    this.catalogueService.addJob(this.job).subscribe(
-      res => {
-        this.router.navigate([`/browseJobs`]);
-      },
-      error => {
-        this.job = new Job();
-        console.log(error)
-      }
+    this.subscriptions.push(
+      this.catalogueService.addJob(this.job).subscribe(
+        res => {
+          this.router.navigate([`/browseJobs`]);
+        },
+        error => {
+          this.job = new Job();
+          console.log(error)
+        }
+      )
     );
   }
 

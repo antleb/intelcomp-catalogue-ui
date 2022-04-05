@@ -1,8 +1,9 @@
-import {Component, Input, OnInit} from "@angular/core";
+import {Component, Input, OnDestroy, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
 import {UserService} from "../../../services/user.service";
 import {UserInfo} from "../../../domain/userInfo";
 import {AuthenticationService} from "../../../services/authentication.service";
+import {Subscriber} from "rxjs";
 
 @Component({
   selector: 'app-top-menu-dashboard',
@@ -10,25 +11,34 @@ import {AuthenticationService} from "../../../services/authentication.service";
   styleUrls: ['../top-menu.component.css']
 })
 
-export class TopMenuDashboardComponent implements OnInit {
+export class TopMenuDashboardComponent implements OnInit, OnDestroy {
 
+  subscriptions = [];
   userInfo: UserInfo = null;
 
   constructor(private userService: UserService, private authenticationService: AuthenticationService) {
   }
 
   ngOnInit() {
-
-    this.userService.getUserInfo().subscribe(
-      res => {
-        this.userInfo = res;
-        this.userService.userInfo = res;
-        // console.log(this.userInfo);
-      }, error => {
-        console.log(error);
-      }
+    this.subscriptions.push(
+      this.userService.getUserInfo().subscribe(
+        res => {
+          this.userInfo = res;
+          this.userService.userInfo = res;
+          // console.log(this.userInfo);
+        }, error => {
+          console.log(error);
+        }
+      )
     );
+  }
 
+  ngOnDestroy() {
+    this.subscriptions.forEach(subscription => {
+      if (subscription instanceof Subscriber) {
+        subscription.unsubscribe();
+      }
+    });
   }
 
   parseUsername() {

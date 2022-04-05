@@ -1,7 +1,8 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {CatalogueService} from "../../services/catalogue.service";
-import {ChapterAnswer, Survey, SurveyAnswer} from "../../domain/survey";
+import {Survey, SurveyAnswer} from "../../domain/survey";
+import {Subscriber} from "rxjs";
 
 
 @Component({
@@ -9,10 +10,9 @@ import {ChapterAnswer, Survey, SurveyAnswer} from "../../domain/survey";
   templateUrl: 'form.component.html'
 })
 
-export class FormComponent implements OnInit {
+export class FormComponent implements OnInit, OnDestroy {
 
-  // answerMap: Map<string, ChapterAnswer> = new Map<string, ChapterAnswer>();
-  // chapterAnswer: ChapterAnswer = null;
+  subscriptions = [];
   tabsHeader: string = null;
   survey: Survey = null;
   surveyAnswers: SurveyAnswer = null
@@ -23,17 +23,27 @@ export class FormComponent implements OnInit {
 
   ngOnInit() {
     this.datasetTypeId = this.activatedRoute.snapshot.params['datasetTypeId'];
-    this.catalogueService.getDatasetAnswer(this.datasetTypeId).subscribe(
-      res => {
-        this.surveyAnswers = res;
-        this.surveyAnswers.modelId = 'm-eNScSZrq';
-        this.surveyAnswers.chapterAnswers[this.datasetTypeId].chapterId = 'c-tTpgVjMV';
-        console.log(this.surveyAnswers);
-      },
-      error => {
-        console.log(error);
-      }
+    this.subscriptions.push(
+      this.catalogueService.getDatasetAnswer(this.datasetTypeId).subscribe(
+        res => {
+          this.surveyAnswers = res;
+          this.surveyAnswers.modelId = 'm-eNScSZrq';
+          this.surveyAnswers.chapterAnswers[this.datasetTypeId].chapterId = 'c-tTpgVjMV';
+          console.log(this.surveyAnswers);
+        },
+        error => {
+          console.log(error);
+        }
+      )
     );
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(subscription => {
+      if (subscription instanceof Subscriber) {
+        subscription.unsubscribe();
+      }
+    });
   }
 
 }
