@@ -25,7 +25,7 @@ export class AuthenticationService {
   }
 
   login() {
-    window.location.href = this.base + '/login';
+    window.location.href = this.base + '/oauth2/authorization/cite';
   }
 
   logout() {
