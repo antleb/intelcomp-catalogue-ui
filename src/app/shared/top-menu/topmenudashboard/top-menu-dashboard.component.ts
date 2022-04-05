@@ -22,6 +22,7 @@ export class TopMenuDashboardComponent implements OnInit {
     this.userService.getUserInfo().subscribe(
       res => {
         this.userInfo = res;
+        this.userService.userInfo = res;
         // console.log(this.userInfo);
       }, error => {
         console.log(error);
